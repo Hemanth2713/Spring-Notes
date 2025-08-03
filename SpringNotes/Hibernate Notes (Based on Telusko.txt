@@ -1,0 +1,198 @@
+# Hibernate Notes (Based on Telusko YouTube Videos)
+
+## Introduction to Hibernate
+- Hibernate is an **ORM (Object Relational Mapping)** framework for Java.
+- Helps in mapping Java objects to database tables.
+- Eliminates the need for JDBC boilerplate code.
+- Provides features like **automatic table creation, caching, lazy loading, and transaction management**.
+- Supports multiple databases such as MySQL, PostgreSQL, Oracle, and more.
+- Reduces development time by managing database interactions efficiently.
+- **Key Point**: Hibernate improves application performance and maintainability by handling database operations automatically.
+
+## Hibernate Architecture
+1. **Configuration**: Reads hibernate.cfg.xml file for database configurations.
+2. **SessionFactory**: A heavyweight object that provides Session instances.
+3. **Session**: Represents a unit of work, used to interact with the database.
+4. **Transaction**: Manages database transactions.
+5. **Query**: Used to execute HQL (Hibernate Query Language) queries.
+6. **Persistence Context**: Manages entity objects and ensures synchronization between database and Java objects.
+- **Key Point**: The architecture ensures efficient database interaction while maintaining data integrity and consistency.
+
+## Hibernate Configuration
+- Requires hibernate.cfg.xml with database configurations:
+
+```xml
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/your_db</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">root</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="show_sql">true</property>
+    </session-factory>
+</hibernate-configuration>
+```
+
+- **hibernate.hbm2ddl.auto** values:
+  - `create` – Creates database schema each time.
+  - `update` – Updates schema without deleting data.
+  - `validate` – Ensures schema matches without modifying it.
+  - `create-drop` – Drops schema at the end of session.
+- **Key Point**: Proper configuration is crucial to avoid data loss or unwanted schema changes.
+
+## Hibernate Annotations
+- `@Entity` – Defines a class as an entity.
+- `@Id` – Specifies the primary key.
+- `@GeneratedValue(strategy = GenerationType.IDENTITY)` – Auto-generates primary key values.
+- `@Column(name = "column_name")` – Maps a field to a database column.
+- `@Table(name = "table_name")` – Specifies table name for the entity.
+- `@Transient` – Excludes a field from persistence.
+- **Key Point**: Hibernate annotations simplify object-relational mapping and improve code readability.
+
+## Hibernate CRUD Operations
+### 1. Save an Object
+```java
+SessionFactory factory = new Configuration().configure().buildSessionFactory();
+Session session = factory.openSession();
+Transaction tx = session.beginTransaction();
+
+Student student = new Student();
+student.setName("John Doe");
+
+session.save(student);
+tx.commit();
+session.close();
+```
+### 2. Retrieve an Object
+```java
+Session session = factory.openSession();
+Student student = session.get(Student.class, 1);
+System.out.println(student.getName());
+session.close();
+```
+### 3. Update an Object
+```java
+Session session = factory.openSession();
+Transaction tx = session.beginTransaction();
+
+Student student = session.get(Student.class, 1);
+student.setName("Jane Doe");
+
+session.update(student);
+tx.commit();
+session.close();
+```
+### 4. Delete an Object
+```java
+Session session = factory.openSession();
+Transaction tx = session.beginTransaction();
+
+Student student = session.get(Student.class, 1);
+session.delete(student);
+
+tx.commit();
+session.close();
+```
+- **Key Point**: Hibernate provides simplified CRUD operations compared to traditional JDBC code.
+
+## Hibernate Relationships
+### 1. One-to-One Mapping
+```java
+@Entity
+public class Student {
+    @Id
+    @GeneratedValue
+    private int id;
+
+    @OneToOne
+    private Address address;
+}
+```
+### 2. One-to-Many Mapping
+```java
+@Entity
+public class Department {
+    @Id
+    @GeneratedValue
+    private int id;
+
+    @OneToMany(mappedBy = "department")
+    private List<Employee> employees;
+}
+```
+### 3. Many-to-Many Mapping
+```java
+@Entity
+public class Student {
+    @Id
+    @GeneratedValue
+    private int id;
+
+    @ManyToMany
+    private List<Course> courses;
+}
+```
+- **Key Point**: Relationship mappings simplify data retrieval and ensure referential integrity.
+
+## Hibernate Caching
+1. **First-Level Cache**: Enabled by default, stores session objects.
+2. **Second-Level Cache**: Requires external libraries like EhCache.
+3. **Query Cache**: Used to cache query results for better performance.
+- **Key Point**: Caching reduces database hits, improving application performance.
+
+## Hibernate Transactions
+```java
+Transaction tx = session.beginTransaction();
+try {
+    session.save(student);
+    tx.commit();
+} catch (Exception e) {
+    tx.rollback();
+}
+```
+- **Key Point**: Transactions ensure data consistency and rollback changes in case of failure.
+
+## Hibernate Query Language (HQL)
+- Similar to SQL but works with **Java objects instead of database tables**.
+
+### 1. Fetch All Records
+```java
+Query query = session.createQuery("FROM Student");
+List<Student> students = query.list();
+```
+### 2. Using WHERE Clause
+```java
+Query query = session.createQuery("FROM Student WHERE id = :id");
+query.setParameter("id", 1);
+Student student = (Student) query.uniqueResult();
+```
+### 3. Delete Using HQL
+```java
+Query query = session.createQuery("DELETE FROM Student WHERE id = :id");
+query.setParameter("id", 2);
+query.executeUpdate();
+```
+- **Key Point**: HQL is database-independent and simplifies querying Java objects.
+
+## Fetching Data Using HQL
+```java
+Query query = session.createQuery("SELECT name FROM Student WHERE marks > 50");
+List<String> names = query.list();
+```
+- **Key Point**: HQL can retrieve specific columns, reducing unnecessary data fetches.
+
+## Get vs Load
+- `get()`: Returns `null` if the entity is not found.
+- `load()`: Throws `ObjectNotFoundException` if the entity does not exist.
+- **Key Point**: Use `get()` when the entity might not exist and `load()` when the entity is guaranteed to be present.
+
+## Conclusion
+- Hibernate simplifies database interactions in Java applications.
+- Reduces boilerplate JDBC code.
+- Supports caching, transactions, and automatic table creation.
+- HQL provides an object-oriented way to interact with the database.
+- Provides a robust solution for handling complex relationships and queries.
+- **Key Point**: Hibernate is a powerful framework that enhances database efficiency and application scalability.
+

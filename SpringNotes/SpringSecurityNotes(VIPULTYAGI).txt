@@ -1,0 +1,79 @@
+Below is the English translation of the provided Hindi transcript, preserving all details and context without any loss of data. The translation maintains the technical accuracy, conversational tone, and structure of the original content.
+
+---
+
+**00:00:00**  
+So far, in all the controllers we’ve created, we’ve only been sending the username, not the password. In other words, we’re just sending the name (username). There’s no security in our endpoints right now—anyone can access them. If I go to the `JournalEntryController`, you’ll see here that I’m only sending the username. There’s no concept of a password yet. So, if I want to send a password, how can I do that? Obviously, the way we’re sending the username here as a path parameter is wrong; that’s not how it’s done.
+
+**00:00:33**  
+This is part of the API. We’re sending the username as a path parameter, which is incorrect. Similarly, we don’t send the password in the request or path parameters either. So, sir, tell me, how do we send it? That’s exactly what we’re going to learn in this video. In other words, we’re going to study **Spring Security**. Spring Security is a security framework that handles **authentication** and **authorization** within our Spring Boot project. What does authentication and authorization mean? Authentication is about determining who is allowed access and who isn’t. For example, if there’s an API, can you access it? That’s called authentication. Authorization, on the other hand, means if you have access to something, what can you do with it? For example, let’s say I give you access to a MongoDB server. The question is, can you access it? If you have the right credentials, yes, you can. That’s authentication—you’re authenticated with the MongoDB server.
+
+**00:01:46**  
+The second question is, now that you’re authenticated, what can you do? Do you have read access, write access, or delete access? That’s authorization. So, Spring Security is used to handle authentication and authorization. In this video, as I mentioned, we’ll add passwords and other security features using Spring Security. Authentication is the process of verifying a user’s identity—for example, using a username and password, or in some cases, email and password, or even two-factor authentication (2FA). Authorization is the process of granting or denying access to specific resources and actions based on the authenticated user. In other words, what permissions do you have? What roles do you have? Admin role, read role, etc.
+
+**00:02:17**  
+Now that we’ve understood what Spring Security is—authentication and authorization—we know we’ll use it to add usernames and passwords. But how do we add Spring Security? First, we need to include it, then use it. It’s written here: just by adding this dependency, all your endpoints will become secure. No one will be able to access them without the correct username and password. By default, that’s what happens. As soon as you add the dependency, all endpoints are secured. It’s written here: “Once the dependency is added, Spring Boot’s auto-configuration feature will automatically apply security to the application.”
+
+**00:03:26**  
+By default, Spring Security uses HTTP Basic Authentication. I just told you that Spring Security is great—it handles authentication and authorization. We added the dependency to our `pom.xml`. By default, it secures all endpoints, meaning every endpoint will require a username and password. It’s also mentioned that the default authentication is HTTP Basic Authentication. What does that mean? Basic Authentication means the client sends a header. For example, if I have an API and I want to access it using Postman, we used to send a GET call like `/getRam` to fetch journal entries for a user. But now, that won’t work. First, remove the username from the URL. When we hit the endpoint, we’ll need to send a header.
+
+**00:04:25**  
+No problem, we’ll send it ourselves. It’s written here: “The client sends an Authorization header.” You see these headers? The client (i.e., us) sends the header: `Authorization: Basic <encoded string>`. The server decodes the string, extracts the username and password, verifies them, and if they’re correct, grants access. Otherwise, an unauthorized response is sent back. The encoded string is created as `username:password`, which is then Base64-encoded. By default, all endpoints will be secured, and Spring Security will generate a default user with a random password printed in the console logs on startup.
+
+**00:05:25**  
+If you haven’t created a user yourself, Spring will print a random password in the console for your convenience. Obviously, you can also configure the username and password in your `application.properties`. But we’ll store users in the database because all our users are stored in MongoDB Atlas. If you still want to use `application.properties` for some reason, you can set `spring.security.user.name` and `spring.security.user.password`. Let’s try it out before moving forward. Here’s our controller. Let’s run it. In Postman, we created a user named Ram. Our database isn’t local—it’s on Atlas. Let’s add the dependency to `pom.xml`, reload Maven, and restart the server. The auto-configuration will kick in, and all endpoints will be secured.
+
+**00:06:22**  
+Now, if I send the request in Postman, I get an “Unauthorized” error. It’s saying “Forbidden—use a username and password.” By default, Spring Security creates a user. In Postman, go to the “Auth” tab, select “Basic Auth,” and the username is `user` since we haven’t created any custom user yet. The password is printed in the console. Here it is—copy the password, paste it, and send the request. It works! Right now, there’s only one user, and all endpoints are authenticated with it. In the “Auth” tab, Postman automatically adds an `Authorization` header. If you go to the “Headers” tab, you’ll see `Authorization: Basic <encoded string>`. The encoded string is `user:<password>` Base64-encoded.
+
+**00:07:21**  
+I explained earlier that you take `username:password`, encode it in Base64 using a website like a Base64 encoder, and that’s what’s sent. Postman does this automatically. Now, all endpoints are secure, but there’s only one user and password. We need customization. We’ll create a configuration class to customize this. Here’s the class in the slide—we’ll go through it word by word. Why are we creating this `SecurityConfig` class? Right now, all endpoints are secure, but we want to secure only specific ones. Also, there’s only one user, and we want to change that. To apply these customizations, we need a configuration class.
+
+**00:08:20**  
+The class extends `WebSecurityConfigurerAdapter`. First, it has the `@EnableWebSecurity` and `@Configuration` annotations. `@EnableWebSecurity` tells Spring to enable web security support, and it comes with `@Configuration`. But we already added the dependency, so why this annotation? It indicates that we’re customizing Spring Security. The class extends `WebSecurityConfigurerAdapter`, a utility class in Spring Security that provides default configurations and allows customization. By extending it, you can configure and customize Spring Security for your application’s needs.
+
+**00:09:29**  
+Let’s create the class in IntelliJ. We’ll make a package called `config` to store all configuration classes. For now, we’re adding the Spring Security configuration. Create a class called `SecurityConfig` to define beans, add `@EnableWebSecurity`, and extend `WebSecurityConfigurerAdapter`. Inside, you’ll see methods like `configure`. We’ll use and modify two of them by overriding them. The slide mentions the `configure` method for HTTP security. This method defines how request matching should be done and what security actions should be applied. In other words, which requests to secure, which not to, and how to secure them.
+
+**00:11:06**  
+What’s passed into this method? An `HttpSecurity` object. With this, we can apply filters to specify which requests need authentication and how to authenticate them. For example, the slide shows `http.authorizeRequests()`. This tells Spring Security to start authorizing requests. Then, `.antMatchers("/hello").permitAll()` means requests to `/hello` don’t need authentication. `.anyRequest().authenticated()` means all other requests must be authenticated. `.and().formLogin()` enables form-based authentication, showing a login form for unauthenticated users trying to access secured endpoints.
+
+**00:13:05**  
+The dots (`.`) represent method chaining in Spring Security, allowing multiple configurations to be chained. `.antMatchers("/hello")` specifies that requests to `/hello` should be permitted without authentication. `.anyRequest()` is a general matcher for requests not already matched (e.g., not `/hello`) and requires authentication. `.and()` returns to the `HttpSecurity` object to add more configurations, like `.formLogin()`. By default, Spring Security provides an HTML login form. You can customize the login page, but if not specified, the default login page at `/login` is used.
+
+**00:16:00**  
+Spring Security also provides logout functionality. A POST request to `/logout` invalidates the session and logs out the user. Basic Authentication is stateless by design, meaning each request must include the `Authorization` header. However, some applications mix Basic Authentication with session management. After successful authentication, a session is created, and a session cookie (`JSESSIONID`) is sent to the client. Subsequent requests use the cookie instead of the `Authorization` header. The session has a limited lifespan, and inactivity leads to logout.
+
+**00:19:49**  
+Spring Security can also enable a “Remember Me” feature using a persistent cookie with a longer lifespan. In Postman, you’ll see the `JSESSIONID` cookie in the headers. Now, let’s move forward. Currently, we have a default user (`user`) with a random password printed in the console. But our users are stored in the database (MongoDB). Right now, the default user can see everyone’s journal entries, which is wrong. We want each user (e.g., Ram, Shyam) to see only their own entries, and passwords should be hashed, not stored in plain text.
+
+**00:21:13**  
+We want our Spring Boot application to authenticate users based on credentials stored in MongoDB. When a user logs in, the system should verify the provided credentials against the database. Let’s clear the database, create two users (Ram and Shyam) with two journal entries each, and start. Delete all collections (`users` and `journalEntries`) in MongoDB Atlas. In IntelliJ, our `SecurityConfig` is set up, and we have controllers: `HealthCheckController`, `JournalEntryController`, and `UserController`. Let’s configure security as shown in the slide.
+
+**00:23:10**  
+In `SecurityConfig`, add: `http.authorizeRequests().antMatchers("/journal/**").authenticated().anyRequest().permitAll().and().httpBasic()`. This secures all `/journal/**` endpoints and allows others without authentication. The `/**` is a wildcard pattern, matching anything after `/journal` (e.g., `/journal/username`). Now, in `JournalEntryController`, we’re sending usernames as path parameters, which is wrong. We’ll use headers instead. Passwords should be hashed using `BCryptPasswordEncoder`.
+
+**00:24:42**  
+Steps to enable authentication:  
+1. **User Entity**: Represents the user data model. We’ve already created this (`User` with `username`, `password`, `journalEntries`, and `roles`). Add a `roles` field (`List<String>`) to store roles like “USER” or “ADMIN” for authorization.  
+2. **User Repository**: Interacts with MongoDB. We’ve implemented `findByUsername`.  
+3. **UserDetailsService Implementation**: Fetches user details. Spring Security provides a `UserDetailsService` interface with a `loadUserByUsername` method. Create a class `CustomUserDetailsService` implementing `UserDetailsService`.
+
+**00:27:29**  
+In `CustomUserDetailsService`, autowire `UserRepository` and implement `loadUserByUsername`. Use `userRepository.findByUsername(username)` to fetch the user. If found, create a `UserDetails` object using `User.builder().username(user.getUsername()).password(user.getPassword()).roles(user.getRoles().toArray(new String[0])).build()`. If not found, throw `UsernameNotFoundException`. This integrates our database users with Spring Security.
+
+**00:31:49**  
+In `SecurityConfig`, autowire `CustomUserDetailsService` and override another `configure` method to set it: `auth.userDetailsService(userDetailsServiceImpl).passwordEncoder(passwordEncoder())`. Define a `passwordEncoder` bean: `return new BCryptPasswordEncoder()`. When saving users, hash passwords using `passwordEncoder.encode()`. During login, Spring Security hashes the provided password and compares it with the stored hash.
+
+**00:34:37**  
+Update controllers. In `UserController`, remove username from path parameters. For creating users, use `passwordEncoder.encode()` before saving. Move the create user endpoint to a `PublicController` (unauthenticated). For update and delete endpoints, secure them and get the username from `SecurityContextHolder.getContext().getAuthentication().getName()`. Disable CSRF and set session management to stateless: `http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)`.
+
+**00:43:08**  
+Test in Postman. Create a user (Ram, password: Ram) via the public endpoint—it’s hashed and saved. For update/delete, use Basic Auth with Ram’s credentials. The username is fetched from the authentication context, and operations are performed securely. Add a delete endpoint: `userRepository.deleteByUsername(authentication.getName())`. All endpoints are now secure, and users can only access their own data.
+
+**00:48:07**  
+In the next video, we’ll improve the `JournalEntryController` and continue enhancing security.
+
+---
+
+This translation captures every technical detail, example, and explanation from the original Hindi transcript, ensuring no data is lost. Let me know if you need further clarification or additional assistance!

@@ -1,0 +1,2223 @@
+Spring AOP
+
+Spring AOP Introduction
+In this section we're going to talk about spring AOP.
+
+Now till this point we have talked about OOP.
+
+Right.
+
+When in fact from the start we're talking about object oriented programming.
+
+And suddenly we are changing our tone by saying, okay, let's talk about AOP.
+
+And then you're like, okay, no, no, we are happy with OOP.
+
+So the thing is AOP is not a replacement of OOP because objects are something very important for Java.
+
+But then there are certain things which you want to do in your application where AOP can help.
+
+Now, first of all, what is AOP?
+
+AOP stands for aspect oriented programming.
+
+But the question really is what we are trying to solve with AOP.
+
+The thing is, AOP complements OOP.
+
+So of course whatever we are doing, it's object oriented.
+
+But then if you use AOP it will solve certain your problems.
+
+And what I'm talking about the problem of cross-cutting concerns.
+
+Okay, now we have a new word.
+
+What is cross-cutting concerns.
+
+So your thing is when you write application, of course in your code you will be having multiple lines
+
+of code.
+
+Okay.
+
+You'll be having thousands of lines of code or maybe more than that, depending upon how big your application
+
+is.
+
+Now when you're building an application like that, of course you want to focus more on the business
+
+logic.
+
+So basically whatever your client needs you will give that in a coding format.
+
+So of course you have to build an application.
+
+And in this application you'll be having a lot of codes and mostly the business logic.
+
+The thing is, apart from the business logic, there are certain things which you have to do which your
+
+client not specifically mentioned here I need this.
+
+I need that certain things you do to protect the application and certain things you do for yourself.
+
+Maybe you want to check the performance of your software.
+
+maybe you want to log the files or the events.
+
+So every time you call a function, you want to log it somewhere.
+
+Hey, you know, this particular function was called or this thing happened.
+
+You know why?
+
+Maybe, let's say on some weird day, your application stopped working.
+
+Or maybe your your customers are complaining about your application and you have no idea what's happening.
+
+So you can simply check a log file to see what is happening.
+
+Okay, so maybe we have to secure the application.
+
+Maybe what we want to maintain the log files.
+
+Maybe we want to handle the exceptions.
+
+And let's say we want to validate the inputs.
+
+Now of course you can do all those things inside your code of course where you will do it right.
+
+So example let's say if I, if I want to show you my code here we have this this controller here.
+
+And we know that the controllers are basically responsible to accept the request and respond to the
+
+client.
+
+The actual processing happens in the service layer.
+
+So let's say this is a layer which is very important for me.
+
+And I'm doing a lot of processing here.
+
+Okay.
+
+Not in this example, but let's say we have some business logic written in this particular files or
+
+in this particular methods.
+
+And now I want to maintain the log.
+
+So let's say every time someone calls save for the to the database, I want to maintain the log of it.
+
+Maybe I want to validate the input.
+
+So maybe whatever data is getting from the client I want to check if this data is correct or not.
+
+Or maybe I want to, uh, handle the exceptions.
+
+Now question arises what?
+
+I will do it of course in this method.
+
+So I will just expand this method and I will start typing all the log codes.
+
+So maybe I will write the log statements here.
+
+Maybe I will write the security statement here.
+
+Uh, maybe I will write the validation for the code here.
+
+And maybe I want to handle the exception for this particular method.
+
+So all these things I'm doing in the same method, I mean, look at the business logic.
+
+It's only one method, one line.
+
+Right.
+
+And look at all these lines.
+
+See, in real world when you build application where you're doing a lot of processing, of course you'll
+
+be having a bigger code there for business logic, but still we have to write a lot of lines of code
+
+inside the method.
+
+Okay.
+
+And not just this number of lines for security.
+
+It's not like one line of code we will do.
+
+Maybe you have to write multiple lines for logging, maybe one line, but then you have to do log here
+
+and maybe log at the end or before you return the value.
+
+If you are returning a value so you will do log two times.
+
+You have to maintain the security.
+
+You have to do validation.
+
+Of course it's not one line of code.
+
+Maybe you want to handle the exception, maybe not one line of code and all these things.
+
+Not your main business logic, but other things are there inside your code and you will say, hey,
+
+what's wrong with that?
+
+I'm okay.
+
+As a developer, I can write all the code.
+
+The only thing you have to do is you have to make it.
+
+You have to make sure it works.
+
+But then you are missing one important thing.
+
+It's not always about writing a code.
+
+It's also about maintaining a code.
+
+It's also about reading a code.
+
+So let's say if you give this project to your colleague and maybe for your testing team, and when they
+
+are looking at your code, they will say, okay, I have all this code here.
+
+What is the main business logic?
+
+So they have to search for the business logic inside your method.
+
+Not a good idea, right?
+
+And it's also make your code a bit difficult to read.
+
+Then what solution?
+
+The solution is it's very simple.
+
+Just delete everything.
+
+No need to write anything inside this method.
+
+All right Okay, we are not solving the problem.
+
+We are running away from the problem.
+
+How do we solve this?
+
+To solve this problem, what we can do is let's create another class, a separate class, and write
+
+all the codes there.
+
+So we are basically separating the concerns.
+
+But the amazing thing is if you talk about this concern let's say log okay.
+
+And even if you are creating a different class for that different method, I want to execute that method
+
+for every method, not just for update.
+
+I want to do it for get up, get job, get all jobs, delete job load.
+
+I want to do it for everything.
+
+Question arise how you are going to call that method.
+
+So even if you have a different method you have to basically call the methods right.
+
+Maybe call the log method.
+
+Call the security features right.
+
+So basically you have to call them.
+
+So one thing we are doing is we are basically separating a concern.
+
+And this concern is not specific to one method.
+
+This concern I'm talking about, the log security is for all the methods.
+
+So can we say they are cross-cutting concerns because it's not appearing at one location but multiple
+
+places.
+
+So those are your cross-cutting concerns okay.
+
+And then I still have to call it what if you don't have to call it.
+
+And that's the entire topic.
+
+You don't have to call this method.
+
+This method should be called automatically and that's where your AOP comes into picture.
+
+Now you might be thinking we have to do a lot of configuration for this.
+
+Not exactly a lot of configuration.
+
+The concept is very easy.
+
+There are certain terms, which is tricky.
+
+So let's understand those things in the upcoming videos.
+
+But the idea here is how can you keep your cross-cutting concern in a separate class, separate methods,
+
+and someone should call it not you.
+
+Logging the Calls
+So let's create a separate file.
+
+So what concerns we are solving here is let's say for logging okay.
+
+And of course when you use AOP you can do it for the logging for the performance monitoring.
+
+Maybe you want to do it for exceptions and validations.
+
+So let's focus on few of the use cases.
+
+Not everything.
+
+And let's understand how AOP works.
+
+And to do that, the first thing you will do is let's try it for logging.
+
+Now for that, let me create a file.
+
+Let me create a class here and let's say this is we are doing for logging and we'll call them as aspect.
+
+So basically we are doing aspect oriented programming.
+
+Uh what is aspect.
+
+We'll talk about it in some time.
+
+But let me just name it Logging aspect.
+
+And here I want to add it to git repository.
+
+And okay so basically we got this class and I'm getting this class in a in the base package.
+
+What I will do is I will just put that into AOP package a different package, and let me just move this
+
+now.
+
+Yep, I want to move to a AOP.
+
+So let's keep all your aspects in this particular folder.
+
+This is for logging.
+
+Maybe you want to do it for validation.
+
+For performance monitoring you will put that inside a different folder okay.
+
+And now here so what you want to do.
+
+So every time someone calls for let's say any method of the service class.
+
+So in this service class we have so many methods.
+
+Any method which is getting called I want to maintain a log for it.
+
+So for what I will do is I will create a method here I will say public void.
+
+I will say log the method call.
+
+So this is a method I want to call every time someone calls the other methods.
+
+And here I want to maintain the log.
+
+So maybe I want to maintain the log in the console or maybe in a log file.
+
+Okay.
+
+At this point let's go for the console.
+
+And instead of using system dot out dot print line, we can also use log here.
+
+So what I can do is I can say private logger.
+
+And I want to make it static final logger equal to.
+
+To get the logger you have to basically use a logger factory dot.
+
+And the package for this is already there in your project.
+
+You don't have to add a forge and you have to say logger factory dot, get logger and mention your class
+
+name which is logger aspect dot class.
+
+Okay, we have imported the wrong package for logger.
+
+I want this to be coming from the forge.
+
+Okay, so once we got the logger object here, I can use this logger to log it.
+
+And of course you can also use some external files if you want.
+
+At this point I will just use the console to see the output.
+
+So logger.info and then I can print a message which I want to print.
+
+So I will say method called okay.
+
+So basically every time some other method gets called I want to say method called in the console.
+
+Okay.
+
+Just to see if things are working out.
+
+And that's it.
+
+This is the code I want right.
+
+So if you compare you got a job service class which has a lot of methods.
+
+And I'm saying that every time I call this method I want to execute this.
+
+But will it work?
+
+Let's try it out and let's see what happens.
+
+So I have my application running.
+
+Let me restart the application.
+
+And if I go back to my postman, let me hit the job post because that will call the service method.
+
+And you can see we got all the response here.
+
+And look at your console, look at your uh output window.
+
+And you can see there is no log for method called.
+
+It's not working.
+
+You know why?
+
+Because we have written a simple class simple method.
+
+How will you connect them.
+
+So basically to connect them we call it as a weaving.
+
+But then it's not working how it will work.
+
+And to understand we have to use basically to make it work, we have to use some annotations.
+
+And before we jump into annotations, I want to make sure that you understand the basic concept of AOP.
+
+And as I mentioned before, AOP is not difficult.
+
+There are certain terms which you have to remember.
+
+If you remember those terms, it is easier to understand and make it work.
+
+So in the next video let's understand the terms which we use in AOP.
+
+AOP Concepts
+
+Now let's talk about the AOP concepts.
+
+As I mentioned before.
+
+AOP stands for Aspect Oriented Programming and to understand different concepts, let's go to the official
+
+documentation of spring where they talk about AOP concept.
+
+The reason I'm going, I'm taking you here is because they explain the concept and technical way.
+
+And of course, we'll try to understand that in our own example with a different context.
+
+Okay.
+
+So here we have AOP and you can see AOP has different concept.
+
+The first one is and even they are saying that however it could be even more confusing.
+
+Uh but then okay so if if you used in spring on terminology.
+
+So we have aspect here.
+
+So aspect is basically a modularization of a concern that cuts across multiple classes.
+
+So as I mentioned before we have something called cross-cutting concerns which you can keep that in
+
+one place.
+
+Uh this can be transition management uh validation security logging.
+
+Right.
+
+You can put that in one place.
+
+Then we have something called a join point.
+
+Now join point is basically a point during the execution of a program such as execution of a method
+
+or the handling the exception.
+
+Okay.
+
+What we'll do is let's not read the text here.
+
+Let's only focus on the names and we'll try to understand that with an example.
+
+So we got aspect.
+
+We got join point.
+
+Then we got advice.
+
+We got point cut.
+
+We got introduction which we're not going to focus more.
+
+Uh, we got target, AOP, proxy and weaving.
+
+Okay.
+
+Apart from this we also have different advices.
+
+We have before after returning, after throwing after finally.
+
+Okay.
+
+These are the concept we have to know, right?
+
+We have different terms.
+
+So if you have if you're taking notes make sure that you take the name of this notes.
+
+If not let me show you the example.
+
+So I have the concept in my own way.
+
+So let's understand the concept in a nutshell.
+
+And let's take let's understand this with a movie example.
+
+Of course.
+
+Right when you watch movies, there are different kinds of movie and type of movie subjective.
+
+Some people prefer to watch rom com, some people prefer to watch thriller, horror or the different
+
+kinds of movie.
+
+Right?
+
+Okay.
+
+Anyway, the point is, see, when you talk about your application, what we're trying to do here is
+
+when you run the application, I want something to happen, right?
+
+I want to maintain the log security, something like that.
+
+So we have we have certain things like when you want to do something.
+
+Example, whenever I call any method of the job service I want to do something.
+
+So that is when okay.
+
+Now this one is called a join point.
+
+Now this join point.
+
+Now think of or think about it as a scene in a movie of your execution where where you want something
+
+to happen.
+
+Okay, so where the action happens next is advice.
+
+So joint point is when you want it to happen but what you want it to happen, that is something called
+
+advice.
+
+So every time I call let's say update method or a delete method, I want to I want to call a log method.
+
+That is your advice what you want to do.
+
+So this is like an action which happens in a particular scene.
+
+Okay.
+
+Next is aspect.
+
+So let's say you want to write all the advices I want to log, I want to secure, I want to do whatever
+
+you want but where you will keep it, of course you will put that in a class.
+
+And that class where you keep your all cross-cutting concerns are called aspect.
+
+Okay, that's your aspect.
+
+So in our example, the logging aspect, this class is the aspect.
+
+And that's why I have written the name aspect Okay, next we have is Pointcut.
+
+So Pointcut is basically also aware.
+
+So aspect is where where you write the code for the cross-cutting concern.
+
+But Pointcut is where, where you want it to happen.
+
+Okay.
+
+Or optionally so it specify the scene.
+
+So let's say if you want something to happen in the advice, but where it where you want it to happen
+
+is something you can mention the join points.
+
+So example I want this log method to be called every time I call methods of service.
+
+So I can mention that in the point cut.
+
+This thing I know might be confusing with joint point because we are saying joint there as well that
+
+where you want it to happen or when into when you want it to happen.
+
+We understand that once we start coding difference between joint point and point cut.
+
+Next is target object.
+
+This is whom?
+
+The main character the hero of the movie.
+
+Right.
+
+So basically, if you want to have a plot twist, it makes sense when you when it is applied on the
+
+main character.
+
+Right?
+
+So who is the main character.
+
+That's your target object.
+
+Next is how you want to introduce these side scenes, this particular events in your movie.
+
+Now that is where weaving, you know I have seen some of the time, you know, uh, when as an actor,
+
+when you watch that introduce on different platforms, they say that when they were making this movie,
+
+they were not knowing about the other things which is happening in the movie.
+
+Maybe they want to maintain the secrecy of what happens, or they they want to keep the suspense to
+
+the audience.
+
+They don't want to talk everything in the interview.
+
+Right?
+
+So even the actors have no idea what is the entire movie is about.
+
+Or maybe sometimes, most of the time they know it.
+
+So that's how you basically connect the other scenes and the main actor scenes.
+
+So it is the director's job to convert this script into a movie.
+
+So it can happen in two times.
+
+It can be done in the compile time or run time.
+
+In terms of Java, compile time means that when the movie is happening or the when when you're making
+
+a movie, all the characters knows what's going to happen, right?
+
+That is compile time.
+
+Run time is they have no idea what is going to happen when they watch the movie in the theater.
+
+Then they will know, okay, this is how the movie is built.
+
+So basically in spring AOP, we are going to do that with the help of runtime.
+
+Okay.
+
+Uh, there are different ways of implementing AOP.
+
+One way is aspect J which goes into compile time.
+
+Okay.
+
+Next is proxy.
+
+You know, in most of the movies we have lot of stunt scenes.
+
+And I used to think in my childhood that all the actors, uh, do their stunt by themselves.
+
+Then I realized, no, we have a body double there.
+
+Right.
+
+So in the amazing.
+
+Okay, we have Tom cruise, who does all these scenes.
+
+But important thing is, when you talk about movie, if you think this is a great action scene, but
+
+to make it great, we have someone else who is doing it.
+
+That's your proxy object.
+
+So in spring as well, when you say you want to change the behavior of your main code, it's not actually
+
+changing the behavior of a main code.
+
+We have a main.
+
+We have a target object here, and on that target object we have a proxy.
+
+So when things are happening, it's not happening directly to the target object.
+
+It's happening through the proxy.
+
+Again we'll see with the example.
+
+Once we write a code then the question is what our type of advice is.
+
+Remember we talked about the advice at a given point I want to do something.
+
+So when whenever you call this method I want to call this method as well.
+
+That's your advice right?
+
+But then when you want to call it before you call that main, uh, main method, or when I say main
+
+method, I'm talking about any method.
+
+So let's say update delete.
+
+So before I call the delete method or after I call the delete method, or after there is an error in
+
+the delete method or after, uh, the delete method is successful, or maybe around the delete method.
+
+So while delete delete method is happening, I want to do something that is called the type of advice
+
+we have before in a movie.
+
+Of course, I will share this file with you.
+
+You can read it so before you want to do it.
+
+After you want to do it, maybe after throwing you want to do it or around you want to do something.
+
+So this are the topics and we will this, this thing will make much more sense once we start writing
+
+a code for it.
+
+Okay.
+
+And how it how we are going to code.
+
+
+Before Advice
+So now let's make it work.
+
+So what we want to do is basically for every method which is getting called in the job service.
+
+For that I want to maintain a log.
+
+And we do have a method here.
+
+If you can see we have a method called log method call.
+
+This is what I want to call right.
+
+That's called call doesn't matter.
+
+So we are going to implement this concept.
+
+So we have talked about different concept here.
+
+And it might be confusing to start with.
+
+But once we understand the example, then we can relate what we are talking about.
+
+Okay, so I will keep it here at the side so that we can refer it later.
+
+So let's focus on this part here.
+
+So we have we want to call this right.
+
+So the first thing you have to do is you have to make this as an aspect.
+
+So of course you have to also make this as a spring component first of all.
+
+And then let's make it aspect does the first thing you will do.
+
+And so we have mentioned right, we have to make sure that all the advices are part of the aspect.
+
+And that's that's what we have done.
+
+Now the next thing we have to mention is a advise.
+
+Now this is the advice which I want to execute.
+
+And for that we have to say, okay, first of all when do you want to do it.
+
+Do this.
+
+So we have different type of advice we got before, after and around.
+
+So when you say before it will be called.
+
+So this method will be called before executing any of the method.
+
+And if you say after and after.
+
+Also we have three different types.
+
+So we have after returning we have after throwing and we have after finally okay.
+
+So what is after returning.
+
+So if everything goes well uh, it will return.
+
+So method will return something.
+
+Right.
+
+So example if you call let's say add job.
+
+Now this will return something.
+
+So let's say when you say add job.
+
+So basically once this function completes or this method completes its work so it will call after returning.
+
+So then we have after throwing.
+
+So what if a particular method throws an exception.
+
+So in that case it will execute after throwing.
+
+And then we got after.
+
+Finally it I mean we have a finally in the word itself right.
+
+So finally simply means that even if your function returns properly or there is an exception, it will
+
+it will get executed.
+
+Okay.
+
+But then at this point I just want to use before.
+
+So I will say before, this is the advice we are going to use.
+
+And so what we are going to execute is this method okay.
+
+But the question is we are saying before but before of what we know that before of any of the method.
+
+We have to also specify that here.
+
+And for that you have to specify an expression here.
+
+Okay.
+
+So this is an expression.
+
+And this expression goes something like this.
+
+You have to mention when.
+
+So on the execution.
+
+So spring AOP supports method calling execution.
+
+So whenever you call the method or whenever the method is getting called this execution is important.
+
+So this will observe the method calls.
+
+So we got execution in this bracket.
+
+You have to mention which method okay.
+
+So we want to we want to specify all the methods right.
+
+So we can simply mention I mean of course we can say start for all the methods.
+
+That's one way.
+
+Okay.
+
+But, uh, we have to specify multiple things, not just the method name.
+
+So we have to specify the return type first.
+
+So the first thing which goes here is return type.
+
+Let me just mention that here.
+
+So return type is the first thing uh the next thing is the fully qualified class name.
+
+So this is fully qualified okay.
+
+So when I say fully qualified means uh including the package.
+
+So example, if you're talking about job service, it's not just job service it is com.co dot spring
+
+boot rest dot service dot job service.
+
+That's the entire path.
+
+So that's the class name.
+
+Next you have to mention the method name.
+
+So it's a method name.
+
+And the last is arguments okay.
+
+So we have to mention all those things.
+
+So whenever you're specifying any particular method.
+
+And of course at this point we are saying all the methods.
+
+But let's say if you want to specify a particular method, in that case you can mention the return type
+
+of it.
+
+Example if I want to focus on add job so type is void, I will mention that first.
+
+Then I will mention the fully qualified class name.
+
+So comm dot telescope, dot spring boot rest dot service, dot job service and then dot the method name
+
+which is add job.
+
+And in the bracket you have to mention the method parameter okay.
+
+But since we want to call all the methods or for, we want to do it for all the methods, the first
+
+thing you'll mention is a return type.
+
+Return type star doesn't matter which method.
+
+When you say star, it's a wildcard for all the return type.
+
+Then you have to mention the package name.
+
+Now for that you can give a package as star.
+
+So the next thing you have to mention is the name of a class.
+
+Right?
+
+So I will say star which means all the classes in this particular package okay.
+
+And then you have to mention the method, name all the methods okay.
+
+So dot all the methods.
+
+And then in the round bracket we have to mention the arguments.
+
+And then you say all the arguments because different methods are different arguments I will say double
+
+dot.
+
+So for arguments we don't use star we use double dots.
+
+So this is particular syntax which you have to remember a return type, then a class name then a method
+
+name.
+
+So of course with a class name you have to say dot method name.
+
+I'll just use an hyphen here.
+
+So this is a syntax which you have to use.
+
+And in the bracket you have to use arguments.
+
+Okay.
+
+So what we have done is in the execution we are saying return type is star, the class is star and the
+
+method is star and the arguments is dot dot.
+
+Question is will it work?
+
+Let's try and then we'll discuss the different names for each of these things which we have used.
+
+So how do we run it.
+
+Same thing.
+
+We'll run this code, right click run.
+
+It will take some time.
+
+And let me also open my postman.
+
+So let me check if it is running.
+
+Okay.
+
+There is an error and we have to solve the error first.
+
+I think this project is running somewhere, so let me start the IDE once.
+
+I'm not sure what is wrong there.
+
+No, it is getting used.
+
+Okay.
+
+Is it because, um.
+
+And if you see the log uh, basically it says method called method called.
+
+Maybe it is calling the method this particular method for everything.
+
+Of course.
+
+Right.
+
+When you run this application even spring will execute something.
+
+Right.
+
+And maybe that's the issue.
+
+So what I will do is let me be a bit specific.
+
+This is not a good idea.
+
+So I will say for all my job service I will mention the package name.
+
+So comm.co dot spring boot rest.
+
+You see the package name.
+
+Yeah.
+
+Dot service, dot job service.
+
+So basically let's mention that only for the job service for all the methods I'm going to do this.
+
+Maybe that's the issue.
+
+So let me start the application okay.
+
+There might be some issue with the port.
+
+What I will do is I will restart my system after completing this video.
+
+So time being let me just change the server port number, server dot port I'll say 8081.
+
+There might be some issue with the port number.
+
+Let me start the application.
+
+Okay.
+
+Now there is no problem.
+
+I'm not sure where my tomcat is getting used or the port 8080 is getting used.
+
+So let me hit for 8081 now and you can see we got the responses.
+
+So which method we are going to call which method we are calling here is get all get all jobs right.
+
+And if you see it should say method called.
+
+And that's what we got.
+
+It says method called okay.
+
+So every time you execute a method not just this, even if you send a request for, let's say job post
+
+three, you're getting one particular job.
+
+Okay.
+
+You have to make sure that this runs on 8081 send okay.
+
+There's no job post three because we have deleted that let's say for send.
+
+And you can see we got data here.
+
+Let me go back to my ID and you can say it says method called okay.
+
+So that's how things are working.
+
+So even if you're not changing your code in your service class, you know, service class has no idea
+
+that you are doing anything with the log.
+
+You're not changing your business logic.
+
+It is something which is happening from the outside world.
+
+Right?
+
+And that's the power of AOP.
+
+Okay, so this is, uh, what we have done, we have done with the before, but what else we can do
+
+here?
+
+JoinPoint
+So I've started my entire system and the problem gone.
+
+You can see I've removed the server port 8081, and now the Tomcat is running on 8080.
+
+I don't know what went wrong.
+
+Maybe some other service is using it.
+
+Let's go back here.
+
+Let's see our logging aspect.
+
+So we are basically calling this or this particular log is getting called whenever you execute a method
+
+inside job service.
+
+But you can be specific as well.
+
+What if you don't want to maintain log for all the methods?
+
+Only one method.
+
+So let's say I want to go for update.
+
+What's the method name?
+
+It is service class.
+
+The method name is update job.
+
+So let's say I want to call only for the update job.
+
+So it will work only for update job.
+
+Now if you call other method it will not work.
+
+But how do we even prove that it is getting called only for update job?
+
+So if you want the information about a method which is getting called, of course that will be useful,
+
+right?
+
+Because just printing method called on the console will not help.
+
+So if you want to achieve that then we have to target our join point.
+
+Remember we have talked about the join point before.
+
+So this is the aspect.
+
+This is your advice.
+
+And this in the bracket is your point cut.
+
+So point cut is basically an expression to specify when you want your advice to be called okay.
+
+And if you want to target a particular method which we are doing here, which is update job.
+
+And if you want to get a hold on it, then we have to use something called a join point.
+
+So here let's say we create object of join point.
+
+I will say JP now we got a hold on that object okay.
+
+And we can print the values now.
+
+So if you want to print something which method was called.
+
+So I can say JP dot get signature.
+
+And I just want the name of the method.
+
+So I will say get name.
+
+So what it will do is so join point has methods like get signature which will give you the signature
+
+of the method which is in this case is your update job.
+
+Right.
+
+So let's go back here and we can we are printing name now.
+
+Let's hope it will work.
+
+But it will only work for the update right.
+
+And we have to basically update something to achieve that.
+
+Or maybe if I don't want to update it let's say I will say get job.
+
+So let's do it for the get job which is this particular method.
+
+And if you want you can also print the parameter.
+
+We'll see that later.
+
+How do we print the parameter.
+
+Let me relaunch it since I've made some changes.
+
+Okay.
+
+Go back to postman and we are doing for the get job uh get job method.
+
+So I will click on this okay.
+
+The server not started yet or it started but then we are accessing the old port which we have changed.
+
+Let us send and you can see we got response.
+
+But let's look at the console here.
+
+It says console method called get job.
+
+Okay.
+
+We got the things which we wanted right.
+
+So every time you call get job it will be called.
+
+Okay, but can we just club different methods?
+
+Yes you can.
+
+So you can give a pipe symbol here and you can write this thing entirely again for different method.
+
+So let's say copy this and paste it here.
+
+And we can say I want to do do this for other method as well.
+
+Let's say update job if you want to do that okay.
+
+And this will work.
+
+So that's how basically we can use before.
+
+And we have talked about join point.
+
+Can we also do after here.
+
+
+After Advice
+So now let's try the after advice.
+
+So what do we do is I will just go back here and I want to do the same thing.
+
+So I will just copy paste this.
+
+Or maybe you can say code reuse.
+
+And let's have a method name different method name.
+
+So I will say log method executed and which method I want to execute.
+
+Let's say I want to target get job and update job only.
+
+And you can see this odd here.
+
+So any of this method executes this will execute.
+
+This will call this particular method.
+
+And the advice I want to use is different.
+
+So instead of using before, I want to use after.
+
+And even if you say after, you can see we have different options there.
+
+We got after.
+
+So when we use only after that is after finally okay.
+
+Which means even if you get the exception or not, it will execute this.
+
+So let's use it.
+
+And now this will be called in fact instead of saying method called let's say method executed.
+
+And you can see we are printing the name as well.
+
+Let's try this.
+
+Now let's restart the application.
+
+Go back to our postman and say hit server.
+
+Not started yet.
+
+Hit not started yet.
+
+Okay, there is an error okay.
+
+It says Pointcut not well defined.
+
+Oh, we forgot to put one more round bracket here.
+
+Let's restart and go back here.
+
+Send okay we got the response.
+
+Let's set the method so you can see.
+
+First it will call method called.
+
+And then it says method executed which is Getjob okay.
+
+So basically we can also use after before.
+
+Here we can also use after throwing if you want uh which will execute when there is an error.
+
+So I can just copy this and say.
+
+Uh log method.
+
+Maybe we can say crash when you get the exception.
+
+And this time, instead of saying after, I will say after throwing.
+
+So this will be executed only when there's a problem.
+
+Okay.
+
+So we'll say method has some issues.
+
+Okay.
+
+So now it will print method has some issues.
+
+And which method which is getname.
+
+So this will be called only if there is an exception.
+
+And maybe we can create an exception here.
+
+So what I will do is in the Getjob before returning I will perform an operation just to generate an
+
+error.
+
+So I will say ten divided by zero.
+
+Of course this will throw the exception, right.
+
+And now if you relaunch it, in fact, before running this I just want to do one more thing I want to
+
+try out after returning as well.
+
+And this time it will say after returning and then I will say method executed success, different method
+
+name and we'll say method executed successfully.
+
+So it depends which one you want to use.
+
+Maybe you want to use after which will act like a finally where irrespective if you get the exception
+
+or not, it will execute this.
+
+But then after throwing will be executed only when there is an exception.
+
+After eating will be executed when there is no exception.
+
+Okay, so I will just restart the app once again since we have made some changes.
+
+And let's head back to postman.
+
+And here I will send the same request again.
+
+Server not started yet.
+
+Okay, it should be done as of now.
+
+And you can see we got response because we got error right.
+
+And if you see the output, of course we have thrown the error by ourselves.
+
+We are not handling it.
+
+But that's not important.
+
+Important is the message right.
+
+So it says method has some issues because we are calling this method which is log method crash.
+
+Also there is one more thing executed which is method executed which is this after.
+
+So it will first execute throwing like a catch block and then it will execute the final block.
+
+We can relate now and it is not used.
+
+It is not executing this.
+
+You know why?
+
+Because crashed.
+
+Let me go back to job service.
+
+Let me remove the exception now and relaunch it.
+
+And let's see what get executed now.
+
+So it is restarting the server.
+
+Go back send the request.
+
+You got the response.
+
+There is no problem there.
+
+And if you see the output now it says method call for get job because that's before.
+
+And then it says method executed successfully because we are printing this as well returning.
+
+And then we can say getjob because finally will be executed later.
+
+Right.
+
+So this is how basically you can monitor your application.
+
+Right?
+
+So if you can maintain the log file like this, if you want you can store this in different log file
+
+as well.
+
+Okay.
+
+But this is interesting right where you can observe your application by using external classes.
+
+And your business logic has no idea what is happening there.
+
+Okay, and if you try to relate this with this concept, which we have talked about.
+
+So we have talked about joint point, it is when.
+
+So that's the method which you want to executing which is get get job.
+
+Next is as wide wise.
+
+So what you want to do is we want to do this things like this things this is advice and aspect is where
+
+you put all your advice in a class, which is aspect.
+
+Pointcut is a is a expression, right?
+
+This is the expression we're talking about.
+
+The target object is the object of this job.
+
+And of course, when you're executing this, this particular target object gets wrapped with a proxy
+
+object okay.
+
+And that's what we have talked about here.
+
+The proxy and weaving all these connections are happening at the runtime.
+
+The type of advice we have talked about before, we have talked about after, we have talked about after
+
+throwing, we have talked about, okay, we have not talked about around yet.
+
+Performing Monitoring using Around advice
+Okay.
+
+So we were able to log the messages.
+
+Right.
+
+So for that we have used the logging aspect.
+
+And then whenever you call any method in fact specifically here we are talking about two methods Getjob
+
+and update.
+
+I have not tested this for update.
+
+You can try it out.
+
+It should work.
+
+But then this is working right?
+
+So basically for logging we have created a separate class a separate aspect.
+
+And in that you have different uh methods.
+
+Now we have different advices there.
+
+We talked about before advice we talked about after in after we have three three types we got after
+
+finally we got after throwing and after returning.
+
+Now apart from this we have one more advice which is called around advice.
+
+See, the thing is, if you talk about this advice like before, after they will get executed before
+
+the method call or after the method call.
+
+But what if you want something which is around?
+
+I mean, you want it to be there at the start and you want it to be there at the end as well.
+
+And that's where around comes into picture.
+
+Now what are the use cases for that?
+
+So let's say you want to check how much time it takes for a particular method to execute.
+
+So let's say in this case we want to again let's focus on getjob.
+
+So I want to see how much time it takes to call or to execute Getjob.
+
+Now why it will take some time is because we are fetching data from database.
+
+Okay, so how will you make it work?
+
+So what we will do for that is we'll right click here and say create a new aspect.
+
+You can say performance monitor aspect.
+
+That sounds good okay.
+
+So in this class I want to check the performance.
+
+Now first of all how do you check the performance.
+
+There are different tools available, but the simplest way to do that is with the help of start time
+
+and time.
+
+So you have to calculate that and then you subtract that, right.
+
+So let's say we can call this method.
+
+Let's say we can call this find by id method separately on the above line.
+
+And before that we'll start the time.
+
+And after that once we once it gets executed or before returning.
+
+Basically we'll say end time and then we'll subtract those two values.
+
+And that's how you will get your actual time for the execution.
+
+But then don't we don't want to write the code inside the business logic.
+
+Right.
+
+So this should be like this so that we can only see the business logic there.
+
+The cross cutting concern will write in the aspect.
+
+Now how do you make this aspect.
+
+It's very simple.
+
+First of all, let's make it as a component so that spring can create uh beans or spring will manage
+
+the bean.
+
+And then we'll say this is aspect because we are doing AOP here.
+
+And now let's create a method for the performance.
+
+So at this point I will say public void.
+
+And let's have the method name as monitor time.
+
+Something like that.
+
+So this is the method where you're going to do this okay.
+
+And we maybe want to log it.
+
+We can also print it using System.out.println.
+
+But let's stick to logging because that's what we are using.
+
+The thing is we can also replace the console to a file if you want.
+
+So we'll just use this line there.
+
+And of course we have to change it to performance aspect or class.
+
+Okay.
+
+We don't need this anymore so I will close it.
+
+Okay.
+
+Now in this method how you are going to implement it.
+
+Now first of all we need the start time end time.
+
+So we'll say int start.
+
+So that's a start time.
+
+How will you get the start time.
+
+It's very simple.
+
+You can simply say system dot current time millis.
+
+You can get the current time at the start okay I think it returns long okay.
+
+And then you will also do long end is equal to system dot current time millis.
+
+And then you go you are going to separate it.
+
+So basically I want this to execute before we execute the get job method.
+
+And I want this to execute this line to execute after the Getjob method is done.
+
+Okay, so I have two statements in the same method and I want them to execute depend upon the Getjob
+
+method.
+
+Okay, that's tricky right?
+
+But we'll see.
+
+How do we solve that.
+
+Let's say we got the time so we can simply say logger.info.
+
+I want to say time taken and I want to print the time now.
+
+So how do you print the time.
+
+It's very simple.
+
+You say end minus start.
+
+Okay.
+
+So basically at this point we are starting it.
+
+At this point we are ending it.
+
+And let's find the difference and then you will get the time right.
+
+Okay cool.
+
+But then will this work.
+
+Of course not.
+
+Right.
+
+So how will you how will you make sure that this get executed before the method is executed after the
+
+method.
+
+And for that we have to basically use an advice so we can use before.
+
+But if you use before, this method will be executed before the execution.
+
+We don't want that.
+
+If you say after, this will execute it after the method, we don't want that.
+
+So we can use something called around here.
+
+Okay.
+
+And the same thing in the around as well.
+
+You have to specify uh, the syntax which is execution inside this bracket.
+
+You have to mention multiple things.
+
+Basically you have to mention star, uh, for the return type and then the complete method name.
+
+Or you can be specific with method name or you can specify all the methods of that Getjob or the job
+
+service.
+
+And if you don't want to type it, you can get it from here.
+
+So let's say I want to get it for all the methods so we can get it for okay, let's say Getjob because
+
+otherwise then you have to use Join Point to get the method name and signature.
+
+We can do that.
+
+But let's go step by step okay.
+
+So we got getjob.
+
+And here we can say dot dot.
+
+So dot dot simply means a wild card to accept any number of arguments.
+
+Right.
+
+Okay.
+
+So this should get executed now right.
+
+What do you think.
+
+Will it work.
+
+That's the question right?
+
+That that's the question.
+
+So let's try it out.
+
+Let me relaunch my application and let's see what happens.
+
+So here if I go back to postman, if I click on send request okay.
+
+We're not getting any response.
+
+That's weird.
+
+It's not working is it.
+
+Because of this particular method.
+
+So you can see it says time taken zero okay.
+
+Okay, something is not working.
+
+We are not getting the output.
+
+And it says time taken zero.
+
+What went wrong.
+
+So the thing is if you skip this particular execution, I mean if you skip this particular advice and
+
+if you restart it will work.
+
+Okay, so something went wrong because of this advice.
+
+So if I go back to postman without it, and of course I have to wait my tomcat to start, I will click
+
+on send.
+
+Okay, it's not up yet.
+
+Click on send.
+
+Not up yet.
+
+Okay, so you can see without that method it is working.
+
+But the moment I uncomment this, that's what is not working.
+
+So question is why is not working?
+
+See, a thing is when you are using around advice, you are specifically mentioning, hey you know I'm
+
+using around here.
+
+So I want this method, this advice to get executed before you execute get job and we are doing it.
+
+But we have to also mention that you have to execute the get job.
+
+So inside this, you know we are saying start and then end.
+
+So in between we have to specify I have to call that method.
+
+How will you do that.
+
+Will you simply create the object of it and call no.
+
+Then.
+
+Then that becomes a new object right?
+
+That becomes a new request.
+
+So what you can do is in the bracket here we have to accept the object of proceeding join point.
+
+So this is a join point.
+
+But then it is proceeding is because after I mean in between this, you are going to call something
+
+else as well.
+
+And that something else is the actual method.
+
+So I will say JP here again.
+
+And then here in between this two you have to say JP dot proceed.
+
+So what we are basically doing is we are calling the job get job method by saying JP dot proceed.
+
+And before that we are checking the time after the execution of that method.
+
+We are checking the time and then we are saying and we are we are calculating a time, but then we are
+
+also calling that method.
+
+In the earlier case it was not happening because we were getting the output which was empty.
+
+But then you can see it is still giving you an error.
+
+It says there might be some exception.
+
+Okay, no problem, I will just throw the exception.
+
+Okay, but will this work?
+
+Now that's the question.
+
+Let's restart the application.
+
+So let's go back to our postman and click on send okay.
+
+So what not started yet I hope there's no error.
+
+There's no error.
+
+Click on send.
+
+It's still not working.
+
+Something is still not working.
+
+But you can see even if you've not got the output, at least you got the time.
+
+It says 96.
+
+What is this 96 96 milliseconds actually.
+
+So I will just also type here milliseconds.
+
+So the current time it is basically gives you the milliseconds right.
+
+So I will also print that.
+
+But still it's not working.
+
+The reason is when you talk about around you have to return an object okay.
+
+That's compulsory.
+
+You have to return an object here because this proceed returns an object.
+
+So what you can do is you can take that in the object obj.
+
+And then you have to return the object.
+
+That's it.
+
+So this is something which was missing.
+
+So you will get the output when you return the object.
+
+Now let's restart after making the changes okay.
+
+Get back to postman click on send.
+
+And now you can see we got the output.
+
+So that means everything is working.
+
+So as a developer who is only working on the business logic has no idea something happened and a user
+
+also got the output.
+
+But if another team member or maybe as a developer, if I if I write my aspect, I know what is happening.
+
+So now you can see it says time taken in which which took around 97 seconds.
+
+But if I hit the same request again, let's see what happens.
+
+You can see it took less time because of caching.
+
+Okay, so click on again.
+
+It will take almost similar time, but first time it will take more time because it will fetch fresh
+
+data.
+
+After that it will fetch it from the cache.
+
+So that's how basically your around advice work.
+
+If you want, you can also print the message or the the method name here.
+
+If you want example I can simply say all the methods.
+
+Doesn't matter which method I'm talking about, and I want to.
+
+Maybe I want to see how much time every method takes.
+
+So basically I can also print here the time taken by uh, I can mention the method name here.
+
+I can say JP dot get signature, dot get name and then I can print some space.
+
+Okay, this should look good.
+
+Let's restart now.
+
+This will take different time.
+
+So if I, uh I mean this will print message the method name as well.
+
+When you click on send.
+
+And if you see the console it says uh, the time taken by Getjob is 104 second.
+
+And if I try different method now let's say I want to fetch all the requests.
+
+I mean all the, all the jobs by saying get all jobs and you can see it will print the method name and
+
+also the time.
+
+So it took 79 seconds.
+
+And if I hit the delete request, of course it will have its own time.
+
+I don't want to delete any record.
+
+That's why I'm not hitting them.
+
+But you can try it out and let me know how much time it took for you to perform that.
+
+But that's how the advice, the around advice works.
+
+In the next video, let's also try to understand what if you want to validate a particular input okay.
+
+Validating the input using Around advice
+So now let's validate the input.
+
+Now what I input I'm talking about.
+
+So let's say if you go back to postman and if you hit the value for one per request let's say for for
+
+and when you click on send, of course you got the response.
+
+But let's say if someone is sending a negative value okay.
+
+In real world people will not do that.
+
+But let's say for any type of data, we're just going for one record here or one variable.
+
+You can work with any kind of variable you want.
+
+But at this point, let's say if someone's sending for minus four and when you click on send you can
+
+see we got the post address zero.
+
+Post profile is null.
+
+Basically the data is not there in database.
+
+It's a mistake from the user side, right.
+
+But maybe user was trying to send request for four and by by mistake he's sending a request for minus
+
+four.
+
+What we can do is even before you send this request to the actual service job or the job service methods,
+
+what if you can change it in between?
+
+Okay, that's That's something we are playing with the input fields, right?
+
+In fact, not just for the with the input.
+
+You can also play with the output which a service is sending.
+
+But let's say let's only play with the input now.
+
+So I want to make this work.
+
+When I click on send I want to I want to make it work.
+
+So what we can do is let's create another aspect here in AOP package.
+
+And I will say this validation aspect and not just changing.
+
+If you just want to check for the values, you can also do that here.
+
+You can stop the request if the value is not correct.
+
+So you can do all those things in this validation aspect if you want to make it work, I will just make
+
+this as a component and aspect that's important.
+
+And now we also need the logging statement right.
+
+So I will just take this and use it here.
+
+We have to change one thing.
+
+Instead of saying performance monitor will say validation aspect okay now let's start the actual work.
+
+So we need a method right.
+
+So we'll say public.
+
+And we know that it returns the object because we are going to use around advice.
+
+So if you want to change the value you can use around advice here and public object, let's use a method
+
+name as validate and update.
+
+Not just checking right.
+
+We have to also update it.
+
+And okay, this is a method I want this to be around.
+
+So I will say around and here okay we have to mention the execution.
+
+So it should be for execution of.
+
+Return type anything.
+
+I want the entire package name.
+
+So I can just simply use it now instead of typing it alone.
+
+Let's only work with Getjob.
+
+Right.
+
+So we'll just copy this, paste it here, and instead of start I will say getjob.
+
+That's the only thing I want to work with.
+
+Okay.
+
+And now we have to return something, right?
+
+So say return.
+
+Uh, object.
+
+We have to create object here.
+
+Maybe we'll do that in some time.
+
+I will simply say null at this point.
+
+Okay.
+
+So now let's start working.
+
+So we have to accept the value.
+
+Right.
+
+Um, so for that we can use first of all processing join point because that's what we're going to use
+
+for proceed.
+
+But apart from this I also want one more variable.
+
+See when you say you want to validate the getjob which will have a post ID.
+
+So I want to get a hold on that variable here as well.
+
+Now the question is how will I get the value here.
+
+See if I get the value here.
+
+I can basically perform the operations which I want.
+
+But then how will I get the value.
+
+So if you want to get the value you can pass one more parameter here by using double ampersand.
+
+And then you can mention the arguments.
+
+And in bracket you can mention the argument name which is post id.
+
+So whatever arguments you are passing inside this getjob will get a name post id and that's the same
+
+name you are using here.
+
+So whatever value you're passing.
+
+So if you're passing minus four this will be minus four.
+
+If you're passing two it will be two okay.
+
+Now once you got the value here we can perform the operation.
+
+Now what I'm talking about we want to check if the post ID, if it is less than zero or even, uh,
+
+okay.
+
+Let's say less than zero.
+
+In that case, we'll say post id is equal to minus post ID.
+
+So what we are doing is we are changing it.
+
+Right.
+
+So if it is minus four it will become plus four minus minus plus basic maths.
+
+And that's it.
+
+Once you have changed the value it's time to call that method which is JP dot proceed.
+
+But in this proceed there is one problem.
+
+If you simply say proceed, it will call the method right, but not with the updated arguments okay.
+
+So okay, it might throw an exception.
+
+Let me show you what I'm talking about.
+
+Okay.
+
+So when you say proceed it will call the Getjob method with the same value which is coming from the
+
+client.
+
+We don't want that.
+
+We want to send our own value which we have updated.
+
+In that case you have to pass the arguments as well.
+
+So in the proceed, if you can see we have a different method for it.
+
+So it says this one proceed method with no parameters.
+
+And there is a second proceed method which takes the object array.
+
+Okay.
+
+So we have to basically pass the value as an array.
+
+So what what we can do here is I can pass a new object array and I'm just passing one value.
+
+So if you have multiple variables you can simply add a comma and you can make it work.
+
+That's it.
+
+This is the thing you have to do.
+
+But this will return an object as well.
+
+So we'll simply say object obj.
+
+And here let's return obj as simple as that.
+
+So what we are doing is we are changing the value which you are, which you are getjob of service is
+
+getting.
+
+So even before you call that method you are changing the value.
+
+And I hope this will work.
+
+Let's try.
+
+In fact, there should be some long message as well, right?
+
+So I will say logger.info.
+
+I can say post id is negative updating it.
+
+Okay.
+
+And maybe I just want to say new value here.
+
+New value.
+
+And let's print the post ID.
+
+So whatever new value is getting updated will also print that there.
+
+And now after making changes let's restart.
+
+Let's go to postman.
+
+And first of all let's work with four.
+
+And let's see what happens.
+
+When I click on send.
+
+You can see it is working for four and there is no problem here.
+
+You can see it is not printing uh positive or the post ID is negative.
+
+But the moment you send a request for minus four, that's where it will trigger.
+
+You can see it is working first of all.
+
+And let's see the console.
+
+So post that is negative updating it.
+
+And the new value is four okay.
+
+So that's how things are working out.
+
+So basically we are validating the input as well.
+
+And we are changing it.
+
+If you don't want to change it that's your choice.
+
+For that you can also use before advice and you can make it work.
+
+So yeah, that's it from uh, this video where we talked about how do you validate with the help of
+
+around advice.
+
+.........................................
+
+**Spring AOP Introduction**
+
+In this section, we explore Spring AOP, shifting our focus from Object-Oriented Programming (OOP), which we’ve discussed extensively, to Aspect-Oriented Programming (AOP). While OOP remains fundamental to Java, AOP complements it by addressing specific challenges, particularly cross-cutting concerns. AOP is not a replacement for OOP but enhances it by providing a way to modularize concerns that span multiple parts of an application. Cross-cutting concerns refer to functionalities like logging, security, exception handling, and input validation that are not part of the core business logic but are essential for robust applications. When developing large applications with thousands of lines of code, the primary focus is on implementing business logic to meet client requirements. However, additional tasks such as logging events, securing the application, monitoring performance, or validating inputs are often necessary. These tasks, if embedded within the business logic, can clutter the code, making it harder to read, maintain, and test. For instance, in a controller or service layer, adding logging, validation, or exception-handling code alongside business logic can obscure the main functionality, complicating code reviews and maintenance. To address this, AOP allows these concerns to be separated into distinct classes, called aspects, which are executed automatically without altering the core business logic. This separation enhances code clarity and maintainability, as developers can focus on business logic while aspects handle auxiliary tasks. In the following sections, we’ll delve into how AOP achieves this through practical examples, starting with logging.
+
+**Logging the Calls**
+
+To illustrate AOP, let’s create a logging mechanism. We begin by creating a class named `LoggingAspect` within an `AOP` package to handle logging concerns. This class, marked as an aspect, contains a method, `logMethodCall`, which logs a message to the console whenever a method in the `JobService` class is invoked. We use a `Logger` from the SLF4J framework to log messages, ensuring flexibility to redirect logs to files if needed. However, simply defining this method doesn’t connect it to the service methods. To enable this, we use AOP concepts like weaving, which integrates the aspect with the target code. We’ll apply annotations to specify when and where the logging should occur, but first, we need to understand key AOP terms, which we’ll cover next. When we test the application without these configurations, no logs appear, confirming that additional setup is required to link the aspect to the service methods.
+
+**AOP Concepts**
+
+AOP, or Aspect-Oriented Programming, is detailed in Spring’s official documentation, which outlines its core concepts. These include **Aspect**, a modular unit for cross-cutting concerns like logging or security; **Join Point**, a specific point in program execution, such as a method call; **Advice**, the action taken by an aspect at a join point; **Pointcut**, an expression defining where advice should be applied; **Target**, the object (e.g., `JobService`) being advised; **Proxy**, an intermediary object that wraps the target to apply advice; and **Weaving**, the process of integrating aspects with the target code, typically at runtime in Spring AOP. Advice types include **Before**, **After Returning**, **After Throwing**, **After (Finally)**, and **Around**, each specifying when the advice executes relative to the join point. To make these concepts concrete, consider a movie analogy: the application is the movie, join points are scenes where actions (advice) occur, aspects are classes containing these actions, and pointcuts define which scenes trigger them. The target is the main character, and weaving, like a director’s editing, integrates these elements at runtime. With these terms in mind, let’s implement AOP with a practical example.
+
+**Before Advice**
+
+To implement logging, we mark `LoggingAspect` as a Spring `@Component` and `@Aspect`. We define a method, `logMethodCall`, and annotate it with `@Before`, indicating it should run before specified methods. The `@Before` annotation uses a pointcut expression, `execution(* com.co.spring.boot.rest.service.JobService.*(..))`, where `*` denotes any return type or method, `JobService` specifies the target class, and `..` indicates any arguments. This ensures the logging method runs before any `JobService` method. Testing this with a Postman request to fetch jobs shows “method called” in the console, confirming the advice executes without altering the service code. This demonstrates AOP’s power to monitor applications externally, keeping business logic clean.
+
+**JoinPoint**
+
+To enhance logging, we can use a `JoinPoint` object to access details about the invoked method. By modifying `logMethodCall` to accept a `JoinPoint` parameter, we can log the method’s name using `jp.getSignature().getName()`. We refine the pointcut to target only the `getJob` method: `execution(* com.co.spring.boot.rest.service.JobService.getJob(..))`. Testing with a Postman request for `getJob` logs “method called getJob,” proving the advice targets the specified method. Multiple methods can be targeted using the `||` operator in the pointcut, e.g., for `getJob` and `updateJob`. This shows how `JoinPoint` provides precise control over logging.
+
+**After Advice**
+
+Next, we explore **After** advice types. We add a method, `logMethodExecuted`, annotated with `@After`, which acts as **After Finally**, running regardless of the method’s outcome. Another method, `logMethodCrash`, uses `@AfterThrowing` to log exceptions, and `logMethodSuccess` uses `@AfterReturning` for successful executions. The pointcut targets `getJob` and `updateJob`. To test `@AfterThrowing`, we introduce an exception in `getJob` (e.g., `10/0`). A Postman request triggers the exception, logging “method has some issues” and “method executed” (from `@After`), but not “method executed successfully” (from `@AfterReturning`). Removing the exception and retesting logs “method called,” “method executed successfully,” and “method executed,” showing the correct execution order. This illustrates how different advice types monitor various method outcomes.
+
+**Performing Monitoring Using Around Advice**
+
+For performance monitoring, we create a `PerformanceMonitorAspect` to measure method execution time. A method, `monitorTime`, annotated with `@Around`, targets `getJob`. It records the start time using `System.currentTimeMillis()`, calls the target method via `jp.proceed()`, and logs the time difference. The `@Around` advice requires returning the `proceed` result, so we capture it as an `Object` and return it. Testing with Postman shows the time taken (e.g., 97 milliseconds) for `getJob`. Extending the pointcut to all `JobService` methods and logging the method name via `jp.getSignature().getName()` provides comprehensive performance insights, demonstrating `@Around`’s ability to wrap method execution.
+
+**Validating the Input Using Around Advice**
+
+Finally, we validate inputs using a `ValidationAspect`. A method, `validateAndUpdate`, annotated with `@Around`, targets `getJob`. It accepts a `ProceedingJoinPoint` and the `postId` parameter using the pointcut `execution(* com.co.spring.boot.rest.service.JobService.getJob(..)) && args(postId)`. If `postId` is negative, it’s updated to its positive equivalent (e.g., -4 becomes 4), and the updated value is passed to `jp.proceed(new Object[]{postId})`. The result is returned, and a log message confirms the update. Testing with Postman for `postId=-4` shows the request processes as if `postId=4`, with the console logging the update. This shows how `@Around` can manipulate inputs before method execution, enhancing application robustness without modifying business logic.
+
+This comprehensive exploration of Spring AOP demonstrates its ability to modularize cross-cutting concerns, improving code maintainability and clarity while enabling powerful monitoring and validation capabilities.
+

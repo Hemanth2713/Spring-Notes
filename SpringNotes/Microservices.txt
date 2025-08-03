@@ -1,0 +1,144 @@
+        //Call the generate url -Here we have to use the RestTemplate -> http://localhost8080/questions/generate
+
+
+The problem here is that we are using localhost, which means we assume that the service is running on the same machine. But what if the service is running on a different machine?
+
+You might suggest using an IP address, but in a microservices architecture, we are not always certain where an instance is running. Therefore, we should not depend on fixed IP addresses.
+
+Additionally, we should not hardcode the port number. How do we know on which port a particular service is running? To solve this problem, we need to introduce additional services.
+
+This is where we first encounter interaction between different microservices.
+
+Key Components to Solve This Problem:
+Feign Client
+
+Feign is similar to an HTTP web request, but the key difference is that it provides a declarative way to communicate with other services.
+You don’t need to hardcode values or manually configure request templates.
+Feign allows you to declare what you want and define the APIs you want to expose.
+Service Discovery
+
+Suppose the Quiz Service needs to communicate with the Question Service.
+The Question Service must be discoverable so that the Quiz Service can find it dynamically.
+To achieve this, we use a Service Discovery Server, which helps microservices locate one another.
+Eureka Server
+
+There are multiple service discovery options, but one of the most popular is Netflix Eureka.
+We need a Eureka Server, and all microservices must register themselves with it.
+When a microservice wants to communicate with another, it can query the Eureka Server instead of relying on hardcoded IP addresses or port numbers.
+Every microservice that needs to search for another will have a Eureka Client.
+
+
+
+This setup ensures dynamic discovery and communication between microservices without relying on fixed IPs or ports.
+
+..........................................................................................................................................
+Now lets understand how do you run the Eureka Server. So basically we want to have something where different microservices will register themselves  and then of course they can also search about each other. so let's say we have ten microservices and then if one microservice wants to connect with anothe r microservice how will they search. So what swe're going to do is we will create aserver a service discovery server. and then every client here will register itslef. so they become a cliet and then we have a server. so which server we are going to use  there are multiple options. But one of the most famous and common one is Netflix Eureka Server. So what we are going to do is we will create a Eureka Server.  We have to create a project by using spring initilaizr.io website and then we have to add only two dependencies  1. Web dependency 2. Eureka Dependency(Spring Cloud Discovery)
+ChatGPT said:
+To set up a Netflix Eureka Server for service discovery in a Spring Boot project, follow these steps:
+
+Step 1: Create a Spring Boot Project
+Go to Spring Initializr.
+Select Maven or Gradle as the build tool.
+Choose Spring Boot Version (preferably the latest stable one).
+Add the following dependencies:
+
+
+
+
+
+
+You said:
+Now lets understand how do you run the Eureka Server.
+So basically we want to have something where different microservices will register themselves  and then of course they can also search about each other. so let's say we have ten microservices and then if one microservice wants to connect with anothe r microservice how will they search. So what swe're going to do is we will create aserver a service discovery server. and then every client here will register itslef. so they become a cliet and then we have a server. so which server we are going to use  there are multiple options. But one of the most famous and common one is Netflix Eureka Server. So what we are going to do is we will create a Eureka Server. 
+We have to create a project by using spring initilaizr.io website and then we have to add only two dependencies 
+1. Web dependency
+2. Eureka Dependency(Spring Cloud Discovery)
+Correct the Sentences
+ChatGPT said:
+Here is the corrected version of your text with proper grammar and clarity:
+
+Now, let's understand how to run the Eureka Server.
+
+We need a system where different microservices can register themselves and discover each other. Suppose we have ten microservices, and one microservice needs to connect with another—how will it find the other service?
+
+To solve this, we will create a Service Discovery Server, where each client (microservice) registers itself. This way, all microservices become clients, and we have a central server for service discovery.
+
+There are multiple options for setting up a Service Discovery Server, but one of the most famous and widely used solutions is Netflix Eureka Server.
+
+Steps to Set Up a Eureka Server:
+Create a Spring Boot project using Spring Initializr.
+Add the following dependencies:
+Spring Web
+Eureka Server (Spring Cloud Discovery)
+///This setup will allow microservices to register with Eureka and discover each other efficientl
+
+
+.................................................................................................................
+Let me create a server_registry project. Now, we are opening our Eureka Server project. It will take some time for the dependencies to load.
+
+Steps to Enable Eureka Server:
+To make it work, we need to modify two things:
+
+Application Properties
+Main Application File
+Step 1: Enable Eureka Server
+Once you have added the required dependencies, follow these steps:
+
+Add the @EnableEurekaServer annotation in the main application file (e.g., ServerRegistryApplication).
+Step 2: Configure application.properties
+Set the application name and port number.
+Additionally, configure three more properties for proper functionality.
+Understanding Eureka Server and Clients:
+Let’s assume we have three components:
+
+Eureka Server
+Quiz Service (Eureka Client)
+Question Service (Eureka Client)
+Both the Quiz Service and Question Service will register themselves with the Eureka Server for service discovery.
+
+But what about the Eureka Server itself?
+
+Should it register itself? → No, it should not.
+Should it fetch the service registry? → No, because it's the server, not a client.
+Key Eureka Server Properties to Set:
+Set Hostname → eureka.instance.hostname=localhost
+Disable Fetching Registry → eureka.client.fetch-registry=false
+Disable Self-Registration → eureka.client.register-with-eureka=false
+By setting these properties:
+
+The Eureka Server will not register itself.
+It will not attempt to fetch registry details from itself.
+We explicitly define the hostname as localhost.
+Additionally, when configuring microservices, it is important to assign meaningful names in the application.properties file for better organization and service discovery.
+
+
+
+
+
+---------------------------------------------------------------------------------------------Feign
+
+Feing 
+
+The problem in the QuizService is  createQuiz postmapping method, i want to get questions form the question service. so we wnat comunication betweeen these two. the first step is done Now we got the Eureka server. So basically these services san search about each other infact the quiz servcie can search question servcie vice versa is not possible is beacause we are not  doing it yet is because teh quiz service we have not enabled teh eureka client. so it is not wasting itself , but we'll do that in some time.
+And now we want to use the quesitonservice to achieve that we need to use RestTemplate. Because how will you send requests to the question service.so we can use the rest template. but hten for that you have to mention the ip adress, prt number and all the othe stuffwhat is we can use some shortcut way to search the service. Now one of the shortcut is use Feing. so there's a concept of open feing or the thing which is difficult which is a client which you can use here. now what things is, is you do instead of you handling everythiong all the ip address and port number or all the configurtation, you tell me whcih service you want to connect to. so the way you can do that is first of all you need to create a fake interface. now i will do that in the general packageof cousre you can make it in the some other packages.
+cretae a feign package inside that create a file this is the file which helos to connec tyour quiz service or question service. Now if you try to understnad what ae the things we want to use from the question service , only three  things 3 particaular mehtods  so basically we want to generate the questions, seconf, we need to get the quesitons fpr aparticular id ad third one is get score. we jus tneed to call those three methods right 
+Create a interface in the feign package and mention the annotaiton for the feign interface @Feign clinet (wehave to add feign depedency in pom.xml) .In this annotation we have to mention  the service you are connecting to. @FeingClient("QUESTIONSERVICE")(If you are using eureka then bette to take the service name form there)
+In this interface -> we hava to add the 3 methods which we are using fromt he question services(when you say a quiz , oarticular quiz service need to access the question service)we need to mention which services we are going to access or which methods we are going to call
+Just go back to the question services and copy these methods and paste is . Now of course this is a interface right  and we are definig methods  we dont want it  teh actual definiton will be there in the question service. here we just need to declare tehnm not defining just declare //give me one examole format for this one. In quiz interface we have to mention questions/generate  if we mention only generate then we will get the error
+so these ar ethe changes we need now.vBys doing this we are saying that hey quiz service if ypu want ot connect ot he quesiton servie i will help you. feign  basically searches for this thing it will help you to connect to the quesiton serices bit also if you want to use this particular deature in your quesiton s question service we need to create quizintterface obkect i mean need to use this reference.. So lets go back to quiz service and here  we  want quiz interface we will mention autowired and quiz interface.intially we were thinking we will be using this rest tmeplate to male the clals to the question service. we are nolt ging to use the resttemplate we are going to use the quiz interface to make the calls.
+
+
+I fyou want to enable the quiz the feign client we need to mention the @EnableFeignClients annotation to the quizservcie main file (QuizService Application)
+
+
+Load Balancer:
+when we have multiple instances of a same servcie let's say even if you talsk about Monolithic application where we have one application, we can have multpile instances of it., that's how we can scale it, right we call them as horizontal scaling where you can create multpile instances.
+so whever a client send arequest now based on which instance is free or available , the request goes to that particular instance, let's say we have 3 instances  and 1 then 3 are busy the request goes to the second instance right. That is called Load Balancing so that one instance will not ne bussy with all the requests.So you can balance the load between the instances.We can achieve the sam thing in the microservices.
+
+
+so let's say we don''t ahve a lot of load on the quiz service, so let's say we are not creating multiple instances of it. we have only one. But he question service is very bussy, so what we can do is we can create multipe instances of it. Let's say we have 2 instance. Now when a request goes fro the client side to the quiz service when the quiz service waants ti access a quesiton service , we have to option there Now based on the load on each instance , we can decide where to send the data, where to send the request, that is called load balancig.
+from the recent version spring, we get that by degfault in the system so the momment you get your eureka client and feing and if you expand teh external libraries we can find the loab balancer jar files
+so you dont have configure anything the moment you use feing slient it will automatically search for question serviceand which ever service or instance has a less request it will send the request there.
+
+//We can also know that on which port it is running  or used in order to that we need to get Environment environment and give annotation as @Autowired if you write(we have to use environme interface not class) //System.out.println(environemrnt.getproprty("local.server.port"));
+

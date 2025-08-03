@@ -1,0 +1,631 @@
+// Object Definition
+let alien = {
+    name: "Hemanth",
+    tech: "Java",
+    Laptop: {
+        cpu: 'i7',
+        ram: 4,
+        brand: "Asus"
+    }
+};
+
+console.log("Alien Object:", alien); // Printing the entire alien object
+
+// Using a for-in loop to iterate over the properties of the 'alien' object
+console.log("Keys in Alien Object:");
+for (let key in alien) {
+    console.log(key); // Outputs: name, tech, Laptop (but not the nested properties inside Laptop)
+}
+
+// Using a for-in loop to print both keys and their corresponding values in the 'alien' object
+console.log("Keys and Values in Alien Object:");
+for (let key in alien) {
+    console.log(key, alien[key]); // Outputs key-value pairs, Laptop will be shown as an object
+}
+
+// To print the properties of the nested 'Laptop' object separately
+console.log("Properties of the Laptop Object:");
+for (let key in alien.Laptop) {
+    console.log(key, alien.Laptop[key]); // Outputs: cpu i7, ram 4, brand Asus
+}
+
+/**
+ * JavaScript treats functions as objects.
+ * - In JavaScript, any non-primitive type is considered an object.
+ * - Since functions are not primitive, they are also objects.
+ */
+
+/**
+ * Function Definition:
+ * - A function can accept one or multiple parameters.
+ * - Using the return statement, we can return a value.
+ * - A function can contain multiple statements:
+ *   - It can print something.
+ *   - It can store data in a database.
+ *   - It can send a request to a server.
+ */
+
+// Function without parameters that prints a message
+function greet() {
+    console.log("Function Call: Hello World!");
+}
+greet();
+
+/**
+ * Function that returns a value instead of printing
+ * - This function does not take any parameters.
+ * - It returns a greeting message.
+ */
+function greet2() {
+    return "Hello World!!";
+}
+console.log("Function Return Value:", greet2());
+
+/**
+ * Function that accepts a parameter and returns a personalized greeting.
+ * - Uses template literals for string interpolation.
+ * - Returns a greeting message with the provided name.
+ */
+function greetings(name) {
+    return `Hello ${name}`;
+}
+
+let user = greetings("Hemanth");
+console.log("Personalized Greeting:", user);
+
+// Function Expression
+
+/**
+ * Anonymous Function (Function without a name, assigned to a variable)
+ * - A function is stored in a variable.
+ * - It can be used like a normal function by calling the variable name.
+ */
+let add = function (num1, num2) {
+    return num1 + num2;
+};
+let result = add(5, 6);
+console.log("Addition Result (Function Expression):", result); // Outputs: 11
+
+/**
+ * Function demonstrating the use of global and local variables.
+ */
+let globalVar = "I am a global variable"; // Global variable
+
+function demoVariables() {
+    let localVar = "I am a local variable"; // Local variable
+
+    console.log("Inside Function Scope:");
+    console.log("Local Variable:", localVar); // Accessible inside function
+    console.log("Global Variable:", globalVar); // Accessible inside function
+}
+
+// Calling the function
+demoVariables();
+
+// Accessing the global variable outside the function
+console.log("Outside Function Scope:");
+console.log("Global Variable:", globalVar); // Works fine
+
+// Trying to access the local variable outside the function will cause an error
+// console.log(localVar); // ❌ Uncaught ReferenceError: localVar is not defined
+
+/**
+ * Explanation:
+ * - `globalVar` is declared outside the function, so it is accessible anywhere.
+ * - `localVar` is declared inside the function, so it can only be accessed within that function.
+ * - If we try to access `localVar` outside the function, it will throw an error.
+ */
+
+/**
+ * Arrow Function:
+ * - A more concise way to write functions using `=>` syntax.
+ */
+let greet3 = function () {
+    console.log("Arrow Function Example: Hello World");
+    return 1;
+};
+console.log("Arrow Function Return Value:", greet3()); 
+
+// Simplified Arrow Function Example
+let add1 = (num1, num2) => num1 + num2;
+let result1 = add1(4, 6);
+console.log("Addition Result (Arrow Function):", result1);
+
+
+// Object laptop1 with properties and methods
+let laptop1 = {
+    cpu: 'i7',
+    ram: 16,
+    brand: 'HP',
+
+    /**
+     * Method to compare the CPU performance with another laptop object.
+     * @param {object} laptop2 - The second laptop object to compare with.
+     * - `this` refers to `laptop1` when calling `laptop1.compare(laptop2)`.
+     * - If `laptop1.cpu` is greater than `laptop2.cpu`, it logs `laptop1`, otherwise it logs `laptop2`.
+     */
+    compare: function (laptop2) {
+        if (this.cpu > laptop2.cpu) { // `this` refers to the current object (laptop1)
+            console.log("Faster Laptop:", this);
+        } else {
+            console.log("Faster Laptop:", laptop2);
+        }
+    },
+
+    /**
+     * Method to print a greeting message.
+     * - This function is a method of `laptop1` and must be called using `laptop1.greet()`.
+     */
+    greet: function () {
+        console.log("Hello World!");
+    }
+};
+
+// Calling the greet method inside the laptop1 object
+laptop1.greet(); // Output: "Hello World!"
+
+// Object laptop2 with similar properties and a method
+let laptop2 = {
+    cpu: 'i9',
+    ram: 16,
+    brand: 'Dell',
+
+    /**
+     * Method to display the CPU of the current laptop.
+     * - `this.cpu` refers to the CPU of the object that calls this method.
+     */
+    getConfig: function () {
+        console.log("Laptop CPU:", this.cpu);
+    }
+};
+
+// Comparing two laptops using an external function (3rd party function)
+function getFastLaptop(laptop1, laptop2) {
+    if (laptop1.cpu > laptop2.cpu) {
+        console.log("Faster Laptop:", laptop1);
+    } else {
+        console.log("Faster Laptop:", laptop2);
+    }
+}
+
+// Calling the external function to compare laptops
+getFastLaptop(laptop1, laptop2); // It compares the two laptops and logs the faster one
+
+// Comparing using the compare method inside laptop1
+laptop1.compare(laptop2); // Since `compare()` is inside `laptop1`, we call it using `laptop1.compare(laptop2)`
+
+// If we try laptop2.compare(laptop1), we will get an error because `compare()` exists only in `laptop1`.
+// To avoid this, we need to define `compare()` inside `laptop2` as well.
+
+
+// Constructor function
+// A constructor function is a regular function used to create multiple instances of an object.
+// By convention, constructor function names start with a capital letter.
+function Alien(name, tech) {
+    this.name = name;
+    this.tech = tech;
+
+    // Method inside the constructor function
+    this.work = function () {
+        console.log("Solving the Bugs");
+    };
+
+    // If we explicitly return a value other than an object, the constructor will ignore it 
+    // and return the created object instead.
+}
+
+// The 'new' keyword creates a new object each time the constructor is called.
+// This ensures that changes made to one object do not affect others.
+
+let alien1 = new Alien("Sai", "JavaScript"); // Creating an instance with name "Sai" and tech "JavaScript"
+let alien2 = new Alien("Hemanth", "Java");   // Creating another instance with different values
+
+console.log(alien1);  // Prints the alien1 object
+alien1.work();        // Calls the work method for alien1
+
+console.log(alien2);  // Prints the alien2 object
+
+
+// Creating an empty array using the Array constructor
+let array1 = new Array();  
+console.log("Empty array:", array1); // []
+
+// Defining an array using the literal notation
+let array2 = [7, 4, 2, 8];
+console.log("Array2:", array2);  // Prints the array [7, 4, 2, 8]     
+console.log("Length of array2:", array2.length); // Prints the length of array2 (4)
+
+// Initializing an empty array and adding values using push()
+let array3 = [];
+array3.push(3);
+array3.push(9);
+array3.push(1);
+array3.push(6);
+array3.push(2);
+
+console.log("Array3 after push operations:", array3); // Prints [3, 9, 1, 6, 2]      
+console.log("Length of array3:", array3.length); // Prints 5
+
+// How to fetch a specific value from an array?
+// In objects, we access values using keys (e.g., obj.key), but arrays use index numbers instead.
+
+// Fetching specific values using index numbers (starting from 0)
+console.log("First value:", array3[0]); // Prints the first value (3)
+console.log("Second value:", array3[1]); // Prints the second value (9)
+console.log("Fifth value:", array3[4]); // Prints the fifth value (2)
+
+// If we try to access an index that doesn’t exist, it returns undefined
+console.log("Accessing non-existent index (10):", array3[10]); // undefined
+
+
+// Defining an array with names
+let names = ["Sai", "Hemanth", "John", "Alice", "Emma"];
+
+console.log("Original Names array:", names);  
+// Prints ["Sai", "Hemanth", "John", "Alice", "Emma"]
+
+// Adding a name at the 5th position (index 5)
+names[5] = "Michael";
+
+console.log("Names array after adding a value at index 5:", names);  
+// Prints ["Sai", "Hemanth", "John", "Alice", "Emma", "Michael"]
+
+// Changing the value at index 2 (third position)
+names[2] = "David";
+
+console.log("Names array after changing index 2:", names);  
+// Prints ["Sai", "Hemanth", "David", "Alice", "Emma", "Michael"]
+
+// Fetching specific names using index numbers
+console.log("First name:", names[0]); // Prints "Sai"
+console.log("Updated third name:", names[2]); // Prints "David"
+console.log("Fifth name:", names[4]); // Prints "Emma"
+console.log("Sixth name (added):", names[5]); // Prints "Michael"
+
+
+
+let mixedArray = [
+    "Sai",                  // Name (String)
+    25,                     // Integer value
+    { tech: "JavaScript" }, // Object with property tech: "JavaScript"
+    function() {            // Function that logs "Hello World"
+        console.log("Hello World");
+    }
+];
+
+console.log("Mixed Array:", mixedArray);  
+
+// Accessing and printing individual elements
+console.log("Name:", mixedArray[0]); // "Sai"
+console.log("Integer Value:", mixedArray[1]); // 25
+console.log("Tech Property:", mixedArray[2].tech); // "JavaScript"
+
+// Calling the function inside the array
+mixedArray[3](); // Prints "Hello World"
+
+
+let array4=[5,7,8,1,4]
+console.log(array4.push(9))
+
+
+
+// Creating an array
+let array = [5, 7, 8, 1, 4];
+
+console.log("Original array:", array);
+
+// 1. Adding & Removing Elements
+array.push(9); // Adds 9 at the end
+console.log("After push(9):", array);
+
+array.pop(); // Removes last element
+console.log("After pop():", array);
+
+array.unshift(2); // Adds 2 at the beginning
+console.log("After unshift(2):", array);
+
+array.shift(); // Removes first element
+console.log("After shift():", array);
+
+// 2. Searching Elements
+console.log("Index of 7:", array.indexOf(7)); // Finds index of 7
+console.log("Includes 8?", array.includes(8)); // Checks if 8 is in the array
+
+// 3. Modifying an Array
+array.splice(2, 1, 10); // Replaces element at index 2 with 10
+console.log("After splice(2,1,10):", array);
+
+let slicedArray = array.slice(1, 3); // Gets elements from index 1 to 2
+console.log("Sliced array (1 to 3):", slicedArray);
+
+// 4. Iterating & Transforming
+array.forEach(num => console.log("ForEach element * 2:", num * 2)); // Loops and doubles each value
+
+let mappedArray = array.map(num => num * 3); // Returns new array with values tripled
+console.log("Mapped array (*3):", mappedArray);
+
+let filteredArray = array.filter(num => num > 5); // Filters values greater than 5
+console.log("Filtered array (>5):", filteredArray);
+
+let sum = array.reduce((acc, num) => acc + num, 0); // Adds all values
+console.log("Sum of elements:", sum);
+
+// 5. Sorting & Reversing
+array.sort(); // Sorts array in ascending order
+console.log("Sorted array:", array);
+
+array.reverse(); // Reverses the array
+console.log("Reversed array:", array);
+
+// 6. Converting Arrays
+let joinedString = array.join(" - "); // Joins array elements into a string
+console.log("Joined string:", joinedString);
+
+console.log("Array as string:", array.toString()); // Converts array to string
+
+
+let nums = [];
+nums[0] = 5;
+nums[99] = 9;
+
+console.log(nums); 
+// Output: [ 5, <98 empty items>, 9 ]
+// The array has a length of 100, but only index 0 and 99 have values. 
+// The 98 empty slots are not filled with zeroes or any default value 
+// because JavaScript arrays are dynamic and can store any type of data 
+// (numbers, strings, objects, etc.). Since we haven't explicitly assigned 
+// values to those indexes, they remain empty (sparse array).
+
+console.log(nums.length); // Output: 100 (length considers the highest index + 1)
+
+
+//Specifically for arrays for of makes much sense
+// Iterating over the array using 'for...of' (this skips empty slots)
+for (let n of nums) {
+    console.log(n); // Prints only 5 and 9, skips empty values
+}
+
+
+// Using 'for...in' loop to iterate over array indexes
+for (let n in nums) {
+    console.log(n); 
+}
+
+// Explanation:
+// - The 'for...in' loop iterates over the **indexes (keys)** of the array, not values.
+// - Unlike 'for...of', 'for...in' does **not skip empty slots** but only logs the **existing keys** (0 and 99).
+// - It prints:
+//      0
+//      99
+// - Since 'for...in' loops over **enumerable properties**, it does not iterate through empty indices.
+
+
+let numbers = [10, 20, 30];
+
+// Destructuring assignment
+let [first, second, third] = numbers;
+
+console.log(first);  // Output: 10
+console.log(second); // Output: 20
+console.log(third);  // Output: 30
+
+
+
+
+let a = 5, b = 10;
+
+console.log("Before swapping: a =", a, "b =", b);
+
+// Swapping using destructuring
+[a, b] = [b, a];
+
+console.log("After swapping: a =", a, "b =", b);
+
+
+
+let words = "My Name is Sai Hemanth";
+
+let splitWords = words.split(' '); // Splitting based on space
+
+console.log(splitWords);  
+// Output: ["My", "Name", "is", "Sai", "Hemanth"]
+
+let words1 = "My Name is Sai Hemanth";
+
+// Splitting the string and assigning to variables
+let [first1, second1, third1, fourth1, fifth1] = words1.split(' ');
+
+console.log(first1);  // Output: My
+console.log(second1); // Output: Name
+console.log(third1);  // Output: is
+console.log(fourth1); // Output: Sai
+console.log(fifth1);  // Output: Hemanth
+
+
+
+let words2 = "My Name is Sai Hemanth";
+let [word1, word2, ...remainingWords] = words2.split(' ');
+
+console.log(word1);       // "My"
+console.log(word2);       // "Name"
+console.log(remainingWords); // ["is", "Sai", "Hemanth"]
+
+// Explanation:
+// - `split(' ')` breaks the string into an array of words: ["My", "Name", "is", "Sai", "Hemanth"]
+// - `first` gets the first word: "My"
+// - `second` gets the second word: "Name"
+// - `...remaining` collects the rest of the words into an array: ["is", "Sai", "Hemanth"]
+// - The spread operator (`...`) is useful when you want to extract some values and store the rest in an array.
+
+
+
+// Creating an array with 8 integer values
+let numbers1 = [10, 20, 30, 40, 50, 60, 70, 80];
+
+// Using forEach loop to print values
+numbers1.forEach((num) => {
+    console.log(num); // We can also perform operations if we want like num * 2
+});
+
+// Explanation:
+// - `forEach` iterates over each element in the array.
+// - `num` represents the current element.
+// - This prints each number in the array one by one.
+
+// Using forEach loop to iterate over the array
+numbers1.forEach((num, index) => {
+    console.log(`Index ${index}: Value ${num}`);
+});
+
+// Explanation:
+// - `forEach` iterates through each element in the array.
+// - `num` represents the current element.
+// - `index` represents the position of the element in the array.
+// - It prints both index and value for better clarity.
+
+// It will accept 3 values -> value, index, array
+numbers1.forEach((num, index, nums) => {
+    console.log(num, index, nums);
+});
+
+// Array of numbers
+let numbers2 = [10, 25, 30, 45, 50, 60, 75, 80];
+
+// Filtering even numbers
+let evenNumbers = numbers2.filter(num => num % 2 === 0);
+
+console.log(evenNumbers);
+// Output: [10, 30, 50, 60, 80]
+
+// Explanation:
+// - `filter()` loops through the array and applies the condition `num % 2 === 0`.
+// - If the condition returns **true**, the number is included in the new array.
+// - If the condition returns **false**, the number is excluded.
+
+// Filtering even numbers and printing them in one line
+numbers2.filter(num => num % 2 === 0).forEach(num => console.log(num));
+
+// Output:
+// 10
+// 30
+// 50
+// 60
+// 80
+
+// Explanation:
+// - `filter(num => num % 2 === 0)`: Keeps only even numbers.
+// - `.forEach(num => console.log(num))`: Iterates over the filtered result and prints each number.
+
+let users = [
+    { name: "Alice", age: 25 },
+    { name: "Bob", age: 30 },
+    { name: "Charlie", age: 35 },
+    { name: "David", age: 20 }
+];
+
+// 1. filter() - Get users older than 25
+let filteredUsers = users.filter(user => user.age > 25);
+
+// 2. map() - Extract names of filtered users
+let allNames = users.map(user => user.name);
+let filteredNames = filteredUsers.map(user => user.name);
+
+console.log(allNames); // Output: ["Alice", "Bob", "Charlie", "David"]
+
+// 3. forEach() - Print each filtered name
+filteredNames.forEach(name => console.log(name));
+
+// Output:
+// Bob
+// Charlie
+
+// Explanation:
+// - `map(user.name)`: Extracts all names -> ["Alice", "Bob", "Charlie", "David"]
+// - `filter(user.age > 25)`: Keeps users older than 25 -> [{Bob, 30}, {Charlie, 35}]
+// - `map(user.name)`: Extracts only names of filtered users -> ["Bob", "Charlie"]
+// - `forEach()`: Prints names
+
+
+// The reduce() method in JavaScript
+
+// The `reduce()` method executes a **callback function** on each element of the array, 
+// resulting in a **single output value**. It is mainly used for **aggregating or summarizing** data.
+
+// Syntax:
+// array.reduce((accumulator, currentValue) => {
+//     return updatedAccumulator;
+// }, initialValue);
+
+// Parameters:
+// - `accumulator`: Holds the accumulated result after each iteration.
+// - `currentValue`: The current element being processed in the array.
+// - `updatedAccumulator`: The new accumulated value after processing `currentValue`.
+// - `initialValue` (optional): The initial value of the accumulator. If not provided, 
+//   the first element of the array is used as the initial value, and iteration starts from the second element.
+
+// Example: Sum of an array using reduce()
+let numbers3 = [10, 20, 30, 40];
+
+let sum1 = numbers3.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue; // Adds currentValue to the accumulator
+}, 0);
+
+console.log("Sum:", sum1);  
+// Output: Sum: 100
+
+// Explanation:
+// - Initial `accumulator` value is 0.
+// - Adds each element to the accumulator:
+//   0 + 10 = 10
+//   10 + 20 = 30
+//   30 + 30 = 60
+//   60 + 40 = 100
+
+
+// Given an array of products with name and price
+let products = [
+    { name: "Laptop", price: 1000 },
+    { name: "Phone", price: 500 },
+    { name: "Tablet", price: 300 },
+    { name: "Headphones", price: 100 },
+    { name: "Monitor", price: 200 }
+];
+
+// Using filter().map().reduce() in a single chain
+let totalCost = products
+    .filter(product => product.price > 200)  // Step 1: Filter expensive products
+    .map(product => product.price)          // Step 2: Extract their prices
+    .reduce((acc, price) => acc + price, 0); // Step 3: Sum up the prices
+
+console.log("Total Cost of Expensive Products:", totalCost);
+// Output: 1800
+
+// Explanation:
+// - `filter(product => product.price > 200)`: Keeps only products with price > 200.
+// - `map(product => product.price)`: Extracts prices from the filtered products.
+// - `reduce((acc, price) => acc + price, 0)`: Sums up the extracted price values.
+
+
+// Set 
+// Creating a Set
+let numbers4 = new Set([10, 20, 30, 40, 10, 20]);//We dont have index values in Set
+
+console.log(numbers4);  
+// Output: Set { 10, 20, 30, 40 } (Duplicates are removed)
+
+// Adding values to a Set
+numbers4.add(50);
+numbers4.add(60);
+console.log(numbers4);  
+// Output: Set { 10, 20, 30, 40, 50, 60 }
+
+// Checking if a value exists
+console.log(numbers4.has(30));  
+// Output: true
+
+console.log(numbers4.has(100));  
+// Output: false
+
+numbers4.forEach(value=>{
+    console.log(value);
+})

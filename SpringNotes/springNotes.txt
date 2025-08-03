@@ -1,0 +1,5 @@
+IOC(Inversion of Control)-> we are inverting the control, but where and what control we are inverting
+ccreate a object, maintian the object and destroy the object.
+as aprogrammer we focus on the business logic not on the object creation. we want someone else to invertin the control. that i IOc
+In spring we have ioc container spring works with container  as a programmer we dont have to create the object some =one has to takecare that is spring here it will create objects for us the cotainer name is IOC container
+DI dependecy Injection -> usinfg speing is not just creating the object  but alos inejecting that into ous application

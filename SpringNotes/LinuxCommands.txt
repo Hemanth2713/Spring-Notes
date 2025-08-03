@@ -1,0 +1,171 @@
+Linux Commands	
+
+Linux Command Structure
+Command Name  +  Options  +  Arguments
+
+1. cat --> Concatenate files and print on the standard output.
+tac --> Concatenate and print files in reverse.
+By using the cat Command we can display the content from the file in the terminal
+EX: There is file abc.txt with some data
+   If we write the command$ cat abc.txt  --> then this command will display the contents that are there in the file.
+   Here cat is command name and abc.txt is argument. we can also give the options in this command.
+   EX: cat -n abc.txt   -->  -n command will display the row numbers for the content in the abc.txt. Here cat is argument, -n is option and ac.txt is    	argument.
+
+    tac abc.txt --> this command will invert the contents in the file.
+    cat concatenation example
+    cat a.txt b.txt > c.txt --> Here it will concatenate a and b files and it will store the output in the c.txt file
+
+   cat > fruits.txt
+   Kiwi
+   Mango
+   Guava   --> If we click on enter then the fruits data will enter automatically into the fruits file.
+  
+   rev command --> it will print the file content from right to left 
+   rev fruits.txt 
+   avaug
+   ognam
+   iwik
+ 
+2. ls --> It will Display the content of the Directory or file at which it is present. This command doesn't require any options and arguments.
+Ex: ls -a --> It will display the hidden folders or files also.(It will display the files that start with . i.e., .python, .music)
+    ls -l --> This command is for long format.(It will print the details).
+    ls -al -->If we run this command it will display the hidden files along with long format.  
+    ls -alh --> It will also display the same data with size of the file in readable format(-h --> It will display the file size in human readable format. In the above output it will display the file in byte format. If we use h then it will display the size of the file based on the file size like KB,MB or GB).
+    ls -alht --> t will sort the files.
+    ls -alhtr --> r will sort the files in reverse order.
+    ls -alhtS  --> S(capital s) It will sort the file based on the file size. If we want we can refer man cat command to see more functionalities about it.
+    
+    ls Test/ -->By writing in this pattern we can see the information that is exist in the Test Folder.
+ 
+
+3.man --> By using this Command we can Display the manual pages of the other commands(It will display how other command will work.)
+Ex: man cat  --> This command will display the manual page of the cat command. In this page we can find the what cat can do and also we can know what we can                                                                    use with cat command.
+
+4.pwd(print working directory) --> This Command will print name of current working directory.
+
+5.cd(change directory) --> By using this command we can able to access that directory or file(We can go into that directory or file).
+EX: cd. --> If we give this command we will stay in that directory.
+    cd.. --> If we write tis command then we will comeback one step in directory.
+    cd ~ --> By using this command we can come to home directory at a time.
+
+
+Root Directory: It is starting point of our directory(Parent directory) we can find the root directory by using the command$ cd /.
+                / is a root directory.
+Home Directory: When we open the terminal  and we write the pwd command then it will come into the home Directory.
+
+TimeStamps:
+Change Time : 
+Command$  ls -lc  --> It will Display the large file along with change timestamps. 
+              c ---> Here c is used for to see the change time. This will happened if there any changes occurs int he file.
+
+Access Time:
+Command$ ls -lu  --> It will Display the Access time 
+
+ls -l  --> It will Display the Modification Time.(The contents are changed)
+ls -lc --> It will Display the Change Time.(Move or rename or changing the permission).
+ls -lu --> It will Display the Access time of the File.(Last time at what time the file used either by terminal or any external application like notepad)
+
+mkdir Command : Make Directories
+
+6. mkdir --> By using this command we will create the folders. We can also create the multiple files at a time.
+Ex: mkdir movies (It will create the single movies folder)
+    mkdir comedy cation horror (It will create 3 folders at a time)
+    mkdir -p kids/animation(It will create a kids folder inside kids folder it will create animation. If we did not mention -p then we will get an erro cannot create directory kids/animation)
+    mkdir  -p kids/animation/2010  (by suing the -p command we can create how many sub folders we want) 
+
+7. touch --> change file timestamps.(update the access and modifications times of each file to the current time(We can see the timestamp by using ls -l)
+				     A file argument that does not exist is created empty, unless -c or -h is supplied). Better to check man touch to see the more functionalities.
+
+8.file --> This command will determine the file type.(It will test the file content and it will tell the type of the file)
+Ex: file 2023 --> It will provide the list of files 
+    file '2023-10-21 18-0503.mp4'  -->  If we not mention in single code it will treat space separated values as separate files.
+
+9.nano --> Nano is a simple, easy-to-use text editor that operates within a terminal window. If a file is not there, it creates and open it.
+Ex: abc.txt file with  some text content in it. If we want to edit the data that is present in the file we can edit by using nano command we can save it.
+    nano abc.tx  --> To save the file ctrl+O : write the current file to disk.
+				      ctrl+X : close the current file buffer and exit the editor.
+10. rm --> remove files or directories.(Usually if we delete a file in gui we can find it in recycle bin. But in the terminal if we remove the file we can't get back it)
+EX : rm -d hello -->(this will remove the hello directory or folder)(-d command is used to remove the empty directory)
+                    (If we not mention -d in the command then we will get error as cannot remove hello is a directory)
+     If we want remove the directory along with inside files then we need to mention the -r. Assume that there are some files inside the hello directory. If                                     	we mention -d in the command we can't able to remove the hello directory. If we write rm -r hello it will remove entire directory.
+
+11.cp --> copy files and directories.
+	  cp command can also rename the file.
+EX: cp another_2012.mp4 another_2012_5_star.mp4
+
+12.mv --> Used to move the file
+
+13. head --> It will display the starting 10 elements
+	     command$ head -n 1 food.txt or head -4 food.txt
+             If we want to see the specific no of elements then we need to mention the -n (here we are using -4 it will print the 4 line info)
+
+14. tail --> It will display the ending 10 elements
+	    command$ tail -4 food.txt --> It will display the last 4 lines.
+ 
+    command tail -f food.txt --> It will print the 10 lines of data and it will not exit, if any new line come into food.txt we can see that line there.
+		 -f --> output appended data as the file grows.
+
+Standard Output :
+when a program or command is execute in the terminal, it generates output that can be displayed directly in the terminal window. This output known as the standard output.
+EX: 
+ command$ ls
+ command$ ls > a.txt  (> --> redirect, this redirection symbol the ls command standard output is added into file if the file is not exist then it will   	              create a new file)
+                By using > -- we can override the data (Ex: If we add new data then the older data in a.txt will be removed)
+                By using >> --  It will append the new data to the previously existing data.
+     Here the a.txt file stores the output of ls command which we got by the ls command run earlier.
+
+15. sort --> sort lines of text files
+   Ex: command$ sort foods.txt --> It will sort the elements in alphabetical or ascending order
+       command$ sort -r foods.txt --> It will sort the elements in the reverse order
+
+       command$ ls -lh --> It will give the list of files with file names and sizes.
+       #To sort the above output data we need to add the output in the file and then we can sort the files based on the requirements.
+       command$ ls -lh >> files --> It will add the ls -lh output into the files file
+       command$ sort -k5h file --> Here it will sort based on the file size
+                            (-k --> It refers to key which need to be sorted)
+                            (5 --> It is the column number, here after the details if there is space it is treated as a column)
+                            (h --> human readable format) Here we are sorting the file based on the size so if we mention h then we can easily understand 			     the size. Here it is sorting in the ascending order.
+       command$ sort -k5hr file --> This command will sort the file in reverse order based on the size.
+       command$ sort -u fruits  --> This command will sort the list of fruits with unique values, if there are any duplicates it will ignore it.               
+  
+16. pipe Operator : If we want provide one command  standard output as standard input to the other command then we can use the pipe operator.
+    Ex: ls -lh
+        ls -h | sort --> It w ill sort the files, without any requirement of new file to store the data.
+        ls -h | sort -k5h -->Here it will sort based on the file size
+                            (-k --> It refers to key which need to be sorted)
+                            (5 --> It is the column number, here after the details if there is space it is treated as a column)
+                            (h --> human readable format) Here we are sorting the file based on the size so if we mention h then we can easily understand 			     the size. Here it is sorting in the ascending order.
+
+        # If we want search for a particular element in a file. we will use the grep command if we want search anything.
+        command$ cat food.txt | grep 'pizza'
+        # We can also use the multiple pipe operators
+        command$ ls -lh | sort -k5h | tail -5 --> It will sort the file based on size and it will print last 5 rows.
+
+17. grep --> It will use for searching
+
+18.artithmetic operations
+Ex: command$ --> echo 2+3 o/p: 2+3
+    command$ --> echo $((2+3)) o/p 5  (syntax for arithmetic operations) It will follow the bodmas rule
+    command$ --> echo $((2*3)) o/p 6 
+    command$ --> echo $((2**3)) o/p 8
+    command$ --> echo $((3/2)) o/p 1
+    command$ --> echo $((11%7)) o/p 4
+    command$ --> echo $((2**(3-2))) o/p 2 It will follow the bodmas rule
+  
+    command$ --> echo $((2**3-2)) o/p 6
+    If we not use echo $((2+3)) o/p 5 command not found (It is similar to writing 5)
+    If we write anything after $ it will consider as a variable or expression. (2+3) In command shell this will have another meaning o/p (2+3) command not 	                                                                                                                                        found
+
+
+
+
+
+
+
+
+
+
+
+
+
+

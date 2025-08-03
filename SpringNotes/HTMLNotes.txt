@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ScholarHat WebApp</title>
+</head>
+<body>
+  <!-- Write HTML code here -->
+<h1>Hello World!</h1>
+<h2>Hello World!</h2>
+<h3>Hello World!</h3>
+<h4>Hello World!</h4>
+<h5>Hello World!</h5>
+<h6>Hello World!</h6>
+<!-- <p>click on alt and if we place the cursor on the tags like 
+  h3, h4, h5 etc we can change that tag whatever we want</p> -->
+<!-- Anchor Tag -->
+<!-- By using this one we can create the Hyperlink, Suppose If wex
+ want to go from One We Page another Specific Webpage we can Go,
+  By Selecting this Hyperlink -->
+  <!-- The <a> HTML element (or anchor element), with its href
+     attribute, creates a hyperlink to web pages, files, email 
+     addresses, locations in the same page, or anything else a URL 
+     can address. -->
+ <a href="https://leetcode.com/">leetcode</a>
+    
+
+
+
+ <!-- There are 3 Types of Lists
+ 1.Ordered Lists
+ 2.UnOrdered Lists
+ 3.Descreption Lists -->
+
+ <!-- UnOrdered List -->
+ <p>UnOrdered List</p>
+ <ul>
+  <li>HTML</li>
+  <li>CSS</li>
+  <li>JAvaScript</li>
+ </ul>
+<!-- ol>li*3 : By Using this format in the VS code We can generate 
+Ordered list with 3 list tags at a time, How many lists we want we 
+can mention that number and also we can do this format for any tag-->
+<!-- Ordered List -->
+<p>Ordered List</p>
+<ol>
+  <Li>Java</Li>
+  <Li>SpringBoot</Li>
+  <Li>SQL</Li>
+</ol>
+<!-- If we want to mention number fromat or dotted we can mention in 
+both Ordered and UnOrdered Lists -->
+<!-- The difference between the Ordered List and UnOrdered List is 
+Semantic difference The Ordered List will follow the Sequence wise 
+and the UnOrdered List will follow the random  wise -->
+
+ <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dl
+">Descreption List</a>
+<table>
+  <tr>
+    <td>Sr.No</td>
+    <td>Name</td>
+    <td>email</td>
+  </tr>
+   <tr>
+    <td>1</td>
+    <td>Sai</td>
+    <td>sai@gmail.com</td>
+  </tr>
+   <tr>
+    <td>2</td>
+    <td>Hemanth</td>
+    <td>hemanth@gmail.com</td>
+  </tr>
+</table>
+<!-- table(tr>td*3)*3 -> It will give the above format without data -->
+<!-- header+main+footer this format gives
+  <header></header>
+  <main></main>
+  <footer></footer> -->
+<!-- <img src="" alt=""> here we need paste the image link in the 
+src and if we want to mention a name for the image then we have to 
+mention it in alt -->
+
+<!-- Style Attribute -->
+
+<h1 style="background-color: red;">Hello World!</h1>
+<h2 style="background-color: grey;">Hello World!</h2>
+
+<p><strong>Lorem Ipsum</strong> is <i><u>simply dummy text</u></i> of the <s>printing and typesetting</s> industry. 
+    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+     when an unknown printer took a galley of type and scrambled it to make a 
+     type specimen book. It has survived not only five centuries, but also the 
+     leap into electronic typesetting, remaining essentially unchanged. It was 
+     popularised in the 1960s with the release of Letraset sheets containing
+    Lorem Ipsum passages, and more recently with desktop publishing software like
+     Aldus PageMaker including versions of Lorem Ipsum.
+  </p>
+  <!-- strong => It will highlight the Data or string
+  b(bold) => it will also  highlight the Data or string,but mostly we will prefer strong
+  i=>This tag is used to convert the data into Italic
+  u=> This tag is used to underline the data
+  em(emphasize)=> This tag also will use similar to Italic
+  s=> This tag is used to strike off the Data -->
+
+
+  <!-- Suppose if we  want to write 2 power 5 i.e., 2^5 .Here we can use Super and Subscipts -->
+  <p>2<sup>5</sup></p>
+  <p>O<sub>2</sub></p>
+
+  <p>Hi My Name is Hemanth, Currently I am Staying in Chennai</p>
+  <!--The above format will store the details in a single line -->
+
+ <p>Hi My Name is Hemanth, <br>Currently I am Staying in Chennai</p>
+  <!-- By using the br tag we can jump to next line -->
+
+
+<!-- If we use pre tag then whatever format you write it will
+ display in that format -->
+  <pre>Hi,
+           My Name is Hemanth,
+     Currently I am living in Chennai</pre>
+
+
+  <!-- by using div tag we can add the code in div tag
+  where it will store code and also we can the property
+  for that code, div tag is like a container it will contains
+  code which performs specific action -->
+  <div class="container">
+    <section>
+      <ul>
+        <li></li>
+         <li></li>
+      </ul>
+    </section>
+  </div>
+  <!-- Block element => It will come in next line 
+  i.e., the content will take the whole space from left to right -->
+<div style="background-color: aqua"">This is my first div</div>
+<!-- Inline element= > It will not come in nextline, it will take only
+space of the content   -->
+<span style="background-color: yellow"">This is my first div</span>
+<br>
+<span style="background-color: yellow"">This is my first div</span>
+<p style="background-color: aqua; display: inline;" >This is my first div</p>
+<!-- If we mention display inline element then it eill convert the the block \element into inlint element -->
+
+<p style="background-color: aqua">This is my first div</p>
+<!-- paragraph tag is also a block element -->
+
+
+<nav>
+  <ul>
+    <li><a href="">Home</li>
+    <li><a href="">About</li>
+    <li><a href="">Contact us</li>
+    <li><a href="">Login</li>
+  </ul>
+</nav>f
+
+</body>
+</html>
+
+..........................Tables.........................
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ScholarHat WebApp</title>
+</head>
+<body>
+  <p><strong>Table Task 1 : Example Table 1</strong></p><br>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Student Id</th>
+        <th>Student Name</th>
+        <th>Gender</th>
+        <th>Age</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>101</td>
+        <td colspan="3">Sai</td>
+        
+      </tr>
+       <tr>
+        <td>102</td>
+        <td>Hemanth</td>
+        <td>Male</td>
+        <td>24</td>
+      </tr>
+       <tr>
+        <td>103</td>
+        <td>Durga Raj</td>
+        <td>Male</td>
+        <td rowspan="2">26</td>
+      </tr>
+       <tr>
+        <td>104</td>
+        <td>Teja</td>
+        <td>Female</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Table Task 2 : To practice Format Table</strong></p><br>
+  <table border="1">
+    <thead>
+      <tr>
+        <th colspan="4">Details</th>
+       
+      </tr>
+    </thead>
+  <tbody>
+    <tr>
+      <td>101</td>
+      <td>djkash</td>
+      <td>lasnfjkl</td>
+      <td rowspan="3">24</td>
+    </tr>
+    <tr>
+      <td>846</td>
+      <td>kanflk</td>
+      <td>ekrnln</td>
+     
+    </tr>
+    <tr>
+      <td colspan="2">3746</td>
+      <td>ewjrjewr</td>
+     
+    </tr>
+    <tr>
+      <td>743</td>
+      <td>kldfgn</td>
+      <td>sdkgnj</td>
+      <td>73</td>
+    </tr>
+  </tbody>
+  </table>
+
+  <p><strong>Table Task 3 : Example Table 2</strong></p><br>
+    <table border=1>
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Full Name</th>
+          <th>Position</th>
+          <th>Salary</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Bill Gates</td>
+          <td>Founder Microsoft</td>
+          <td>$1000</td>
+          <td rowspan="4">Company Founder</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Steve Jobs</td>
+          <td>Founder Apple</td>
+          <td>$1200</td>
+          
+        </tr>
+         <tr>
+          <td>3</td>
+          <td>Larry Page</td>
+          <td>Founder Google</td>
+          <td>$1100</td>
+        </tr>
+         <tr>
+          <td>4</td>
+          <td>Mark Zuckerberg</td>
+          <td>Founder FaceBook</td>
+          <td>$1300</td>
+          
+        </tr>
+         <tr>
+          <td colspan="3"> Total Expense :</td>
+          <td>$4600</td>
+          
+        </tr>
+
+      </tbody>
+    </table>
+</body>
+</html>
+
+
+........................Forms.............................
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ScholarHat WebApp</title>
+</head>
+<body>
+ <fieldset>
+   <!-- Form => It will collect the user input -->
+   <legend><strong>HTML Form Practice</strong></legend>
+  <p><strong>Form 1 Example</strong></p>
+  
+  <form>
+    <label for="email">Eneter the Email Id :</label>
+    <input type="text" id="email">
+    <br>
+    <br>
+    <label for="password">Enter the Password : </label>
+    <input type="text" id="password">
+    <br>
+    <br>
+
+    <input type="submit" value="Submit">
+  </form>
+
+<p><strong>From 2 Example</strong></p>
+<form>
+  <label for="datepicker">Select the Date : </label>
+  <input type="date" id="datepicker">
+
+<br>
+<br>
+  <label for="selector1">Select the Dish : </label>
+  <select name="dishes" id="selector1">
+    <option value="Maggie">Maggie</option>
+    <option value="Biscuits">Biscuits</option>
+    <option value="Chips">Chips</option>
+    <option value="Choclates">Choclates</option>
+  </select>
+
+<br>
+<br>
+<button>Button</button>
+<br>
+<br>
+<textarea name="textarea1" id="textarea1" cols="38" placeholder="Enter the text here...."></textarea>
+</form>
+<form>
+  <label for="textfield1">TextField : </label>
+  <input type="text" name="textfield1" id="textfield1">
+  <br>
+  <br>
+
+  <label for="button1">Button : </label>
+  <input type="submit" name="button1" id="button1" value="Subscribe">
+  <br>
+  <br>
+  <label for="radio1">RadioButton1 : </label>
+  <input type="radio" name="radio1" id="radio1">
+  <br>
+  <br>
+
+  <label for="radio2">RadioButton2 : </label>
+  <input type="radio" name="radio2" id="radio2">
+  <br>
+  <br>
+
+  <label for="radio3">RadioButton3 : </label>
+  <input type="radio" name="radio3" id="radio3">
+  <br>
+  <br>
+
+  <label for="checkbox1">Telugu </label>
+  <input type="checkbox" name="checkbox1" id="checkbox1">
+  <br>
+  <br>
+
+  <label for="checkbox2">Hindi </label>
+  <input type="checkbox" name="checkbox2" id="checkbox2">
+  <br>
+  <br>
+  <label for="checkbox3">English </label>
+  <input type="checkbox" name="checkbox3" id="checkbox3">
+  <br>
+  <br>
+
+  <label for="fileselect1">Upload:</label>
+
+  <input type="file" name="fileselect1" id="fileselect1">
+  <br>
+  <br>
+  <!-- To displya the button for an image -->
+  <input type="image" name="imagebutton" id="imagebutton" alt="click here" src="button1.png" height="20px" width="20px">
+  <br>
+  <br>
+  <label for="email1"> Enter the email : </label>
+  <input type="email" name="email1" id="email1">
+  <br>
+  <br>
+  <label for="password1"> Enter the password : </label>
+  <!-- Here we are usingtype as password by using this format we can store the
+   password in *** fromat ,if we mention the type as text then 
+   it will store the password as it is.-->
+  <input type="password" name="password1" id="password1">
+</form>
+ </fieldset>
+
+</body>
+</html>
+
+...........................Task 1........................
+<!DOCTYPE html>
+<html>
+<head>
+<title>HTML CSS JS</title>
+</head>
+<body>
+<div>
+ <div>
+   <h1>Sai Hemanth</h1>
+   <p>Contact : <a href="www.gmail.com">saihemanth@gmail.com</a></p>
+   <p>LikendIn : <a href="www.likedin.com">Jangam Sai Hemanth</a></p>
+   <p>GitHub : <a href="www.github.com">SaiHemanth745</a></p>
+  </div> 
+  <table>
+    <tr>
+      <td><img src="https://www.google.com/imgres?q=html&imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F6%2F61%2FHTML5_logo_and_wordmark.svg&imgrefurl=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FHTML&docid=1Ted8cCjatfjsM&tbnid=O2LAft90i-2uhM&vet=12ahUKEwjN_Y2S7Z-LAxVXLEQIHWCcMUwQM3oECBsQAA..i&w=800&h=800&hcb=2&itg=1&ved=2ahUKEwjN_Y2S7Z-LAxVXLEQIHWCcMUwQM3oECBsQAA" alt="HTML Image"></td>
+      <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</td>
+    </tr>
+  </table>
+  <section>
+    <h2>Education</h2>
+    <ul>
+      <li>Bachelor Technology in Electronics and Communication,
+       Rajeev Gandhi Memeorial College</li>
+      <li>Intermediate, Rao's Junior College</li>
+      <li>SSC, Chaitanya High School</li>
+    </ul>
+  </section>
+  <section>
+    <h2>Work Experience</h2>
+    <h3>Junior Developer</h3>
+    <p>Jan 2024 - Jan 2025</p>
+    <ul>
+      <li>I attended Oracle Training </li>
+       <li>I attended DBT and Snowflake</li>
+       <li>Currently I'm learning HTML</li>
+    </ul>
+  </section>
+  <h2>Skills : </h2>
+  <section>
+    <ul>
+    <li>HTML</li>
+    <li>SQL</li>
+    <li>Java</li>
+    <li>SpringBoot</li>
+  </ul>
+  </section>
+  <section>
+    <h2>Achievements : </h2>
+    <ul>
+      <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>
+      <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry</li>
+
+  
+    </ul>
+  </section>
+  <section>
+    <h2>Projects</h2>
+    <ul>
+      <li>
+        <h3>Library Management System</h3>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+        <p>Hosted Link : <a href="www.Google.com">LibraryManagement</a></p>
+        <p>GitHub : <a href="www.github.com">SaiHemanth745</a></p> 
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Frequently Asked Questions : </h2>
+    <details>
+      <summary> Question 1: What is You Name?</summary>
+    <!--  The Above summary tag is used to display the Question Fromat
+      to show answer below the qustion in ui we need mention the answer
+      below the summary tag -->
+      <p>My Name is Sai Hemanth</p>
+    </details>
+    <details>
+      <summary>Question 2: What is Lorem Ipsum?</summary>
+      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+    </details>
+  </section>
+  <footer><p>c 2025 Sai Hemanth. All rights reserved.</p></footer>
+ </div>
+</body>
+</html>
